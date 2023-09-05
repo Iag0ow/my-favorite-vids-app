@@ -1,6 +1,5 @@
 import React from 'react'
 import './Login.css'
-import icon_register from '../../assets/images/mdi_register-outline.png'
 const Login = () => {
   return (
     <div className="login-page">

@@ -1,0 +1,117 @@
+body{
+    background: url('../../assets/images/background-login.png');
+    background-size: cover;
+}
+.login-page{
+    color: white;
+}
+.my-favorite-videos-title{
+    color:white;
+    margin: 45px;
+    font-size: 3rem;
+}
+.my-favorite-videos-title span{
+    color: #FF0321;
+}
+.login-page-box label{
+    padding: 0px;
+    font-weight: bold;
+    font-size: 24px;
+}
+.login-page-box{
+    background-color: rgba(217, 217, 217, 0.1);
+    padding: 50px;
+    max-width: 569px;
+    margin-top: 5%;
+    margin-bottom: 50px;
+}
+.login-page-box .btn-entrar{
+    background-color: white;
+    font-weight: bold;
+    width: 100%;
+    font-size: 24px;
+}
+.login-page-box .btn-entrar:hover{
+    color: #000000;
+}
+.login-page-box input{
+    background-color: #000000;
+    color: white;
+}
+.login-page-box input:focus{
+    background-color: #000000;
+    color: white;
+}
+.login-page-box .btn-registrar{
+    background-color: #000000;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    font-size: 24px;
+    position: relative;
+}
+.btn-registrar img{
+    width: 35px;
+    margin-right: 10px;
+}
+.btn-registrar::after{
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url("../../assets/images/mdi_register-outline.png") no-repeat;
+    left: calc(36% - 88px);
+    bottom: -5px;
+}
+.ou-border{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.ou-border div:first-child{
+    width: 105px;
+    height: 1px;
+    background-color: white;
+}.ou-border div:last-child{
+    width: 105px;
+    height: 1px;
+    background-color: white;
+}
+.login-page-box input::placeholder{
+    color: rgba(255, 255, 255, 0.584) !important;
+}
+
+@media screen and (max-width: 768px) {
+    .my-favorite-videos-title{
+        font-size: 2.1rem;
+    }
+    .login-page-box .btn-registrar,.login-page-box .btn-entrar{
+        font-size: 18px;
+    }
+    .login-page-box label{
+        font-size: 18px;
+    }
+    .login-page-box input::placeholder{
+        color: rgba(255, 255, 255, 0.584) !important;
+        font-size: 18px;
+    }
+    .login-page-box{
+        padding: 30px;
+    }
+    .btn-registrar img{
+        width: 25px;
+        margin-left: 0px;
+    }
+    .btn-registrar::after{
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: url(/src/assets/images/mdi_register-outline.png) no-repeat;
+        left: calc(36% - 76px);
+        bottom: 0;
+        top: 0;
+        background-size: 40px;
+    }
+}

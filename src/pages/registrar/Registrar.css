@@ -1,0 +1,11 @@
+.ou-border-register{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ou-border-register div{
+    width: 75%;
+    height: 1px;
+    background-color: white;
+}

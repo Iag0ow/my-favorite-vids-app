@@ -1,0 +1,66 @@
+aside{
+    width: 250px;
+    position: relative;
+} 
+aside::after{
+    content: "";
+    position: absolute;
+    background-color:  #ffffff88;
+    ;
+    height: 100%;
+    width: 2px;
+    right: 0;
+    top: 0;
+}   
+aside ul li{
+    list-style: none;
+    font-size: 24px;
+}
+aside ul li a{
+    text-decoration: none;
+    color: #ffffff88;
+}
+aside ul li a:hover{
+    text-decoration: none;
+    color: white;
+}
+
+aside h4{
+    color: #ffffff88;
+}
+
+aside ul li a:hover #home-icon{
+    fill: white;
+}
+aside ul li a:hover #comunidade-icon{
+    fill: white;
+    fill-opacity: 1;
+}
+aside ul li a:hover #descobrir-icon{
+    fill: white;
+    fill-opacity: 1;
+}
+aside ul li a:hover #videos-icon{
+    fill: white;
+    fill-opacity: 1;
+}
+aside ul li a:hover #videos-icon{
+    fill: white;
+    fill-opacity: 1;
+}
+aside ul li a:hover #videos-icon{
+    fill: white;
+    fill-opacity: 1;
+}
+aside ul li a:hover #config1,aside ul li a:hover #config2{
+    stroke: white;
+    stroke-opacity:1;
+}
+aside ul li a:hover #config1,aside ul li a:hover #config2{
+    stroke: white;
+    stroke-opacity:1;
+}
+aside ul li a:hover .m1{
+    fill:white; 
+    fill-opacity:1;
+}

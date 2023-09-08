@@ -1,4 +1,8 @@
-/* body{
-    background: none;
+body{
+    background: url('../../assets/images/background-index.png');
     background-size: cover;
-} */
+}
+.home{
+    display: flex;
+    color: white;
+}

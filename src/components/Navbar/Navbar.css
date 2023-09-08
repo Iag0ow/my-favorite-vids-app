@@ -1,0 +1,117 @@
+nav{
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+nav ul{
+    display: flex;
+    align-items: center;
+    margin-left: 5%;
+}
+nav input{
+    height: 40px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    padding: 20px;
+    width: 145px;
+    background-color: #000000;
+    border: 1px solid white;
+    color: white;
+    padding-left: 50px;
+    position: relative;
+}
+.search{
+    position: relative;
+}
+.search::after{
+    content: "";
+    position: absolute;
+    background: url("../../assets/images/clarity_search-line.png") no-repeat;
+    width: 40px;
+    height: 40px;
+    left: 10px;
+    top: 6px;
+
+}
+
+nav input:hover{
+    border: 1px solid white;
+    color: white;
+}
+
+nav input::placeholder{
+    color: rgba(255, 255, 255, 0.739);
+}
+nav ul li{
+    list-style: none;
+}
+
+nav ul li a{
+    padding: 15px;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-radius: 14px;
+    transition: 1s;
+
+    list-style: none;
+    color: white;
+    font-weight: 700;
+    font-size: 24px;
+    text-decoration: none;
+    margin: 5px
+}
+
+nav ul li a:hover{
+    list-style: none;
+    transition: 1s;
+    border-top: 2px solid blue;
+    border-left: 2px solid blue;
+    border-right: 2px solid blue;
+}
+
+nav h5.my-favorite-videos-title{
+    font-size: 28px;
+    margin: 24px;
+}
+
+/* .login-page-box .btn-registrar{
+    background-color: #000000;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    font-size: 24px;
+    position: relative;
+}
+.btn-registrar img{
+    width: 35px;
+    margin-right: 10px;
+}
+.btn-registrar::after{
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: url("../../assets/images/clarity_search-line.png") no-repeat;
+    left: calc(36% - 88px);
+    bottom: -5px;
+} */
+
+@media screen and (max-width: 768px) {
+    nav ul{
+    }
+    nav h5.my-favorite-videos-title{
+        font-size: 23px;
+        margin: 24px;
+    }
+
+}
+@media screen and (max-width: 998px) {
+    nav ul{
+        display: none;
+    }
+}
+

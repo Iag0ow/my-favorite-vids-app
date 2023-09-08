@@ -9,6 +9,7 @@ import {
 import './App.css'
 import Login from './pages/login/Login';
 import Home from './pages/home/Home';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   const user = localStorage.getItem("token");
@@ -24,9 +25,12 @@ function App() {
   return (
     <div>
       <BrowserRouter>
+        {/* {auth && <Navbar />} */}
+        <Navbar />
         <Routes>
+          {/* <Route path="/" element={ auth ? <Navigate to="/" /> : <Login />} /> */}
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

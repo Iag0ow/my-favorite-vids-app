@@ -1,5 +1,6 @@
 import React from 'react'
 import './Login.css'
+import { Link } from 'react-router-dom'
 const Login = () => {
   return (
     <div className="login-page">
@@ -18,7 +19,7 @@ const Login = () => {
                     <span>ou</span>
                     <div></div>
                 </div>
-                <button type="submit" className="btn btn-registrar text-center"><span>Registra-se</span></button>    
+                <Link to={"/register"} className="btn btn-registrar text-center"><span>Registra-se</span></Link>    
               </div>
             </div>
           </form>

@@ -13,7 +13,10 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Aside = () => {
   const handleLogout = () => {
-    logOut();
+    const result = logOut();
+    if(result) {
+      window.location.reload();
+    }
   }
   
   return (
@@ -60,10 +63,10 @@ const Aside = () => {
               </defs>
             </svg>Perfil</NavLink>
         </li>
-          <li><Link to="/login" onClick={handleLogout}><svg width="24" className='me-3' height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <li><a href='#' onClick={handleLogout}><svg width="24" className='me-3' height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path className='m1' d="M13 10.375V8.625H4.64286V6L0 9.5L4.64286 13V10.375H13Z" fill="#FFFAFA" fill-opacity="0.6"/>
             <path className='m1' d="M16.2308 0H3.76923C2.242 0 1 0.946833 1 2.11111V6.33333H3.76923V2.11111H16.2308V16.8889H3.76923V12.6667H1V16.8889C1 18.0532 2.242 19 3.76923 19H16.2308C17.758 19 19 18.0532 19 16.8889V2.11111C19 0.946833 17.758 0 16.2308 0Z" fill="#FFFAFA" fill-opacity="0.6"/>
-          </svg>Sair</Link></li>
+          </svg>Sair</a></li>
         </ul>
           
         <ul className="mt-5 pt-5">

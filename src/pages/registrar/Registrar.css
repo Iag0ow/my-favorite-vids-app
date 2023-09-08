@@ -9,3 +9,7 @@
     height: 1px;
     background-color: white;
 }
+.registrar-button-link{
+    text-decoration: none;
+    color: black;
+}

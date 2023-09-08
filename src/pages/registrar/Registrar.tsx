@@ -5,9 +5,7 @@ const Registrar = () => {
   return (
     <div>
       <div className="login-page">
-        <h1 className="my-favorite-videos-title">
-          My Favorite<span> Videos</span>
-        </h1>
+      <h1 className="my-favorite-videos-title"><Link to="/" className='text-style-none'>My Favorite<span> Videos</span></Link></h1>
         <form className="container login-page-box">
           <div className="row">
             <div className="col-md-12">
@@ -28,8 +26,8 @@ const Registrar = () => {
               <div className="text-center mt-4 ou-border-register">
                 <div></div>
               </div>
-              <button type="submit" className="btn btn-entrar mt-4">
-                Registrar
+              <button type="submit" className="btn btn-entrar mt-4 disabled-link">
+                <Link to="/registrar" className="registrar-button-link">Registrar</Link>
               </button>
             </div>
           </div>

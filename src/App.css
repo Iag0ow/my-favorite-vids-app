@@ -16,6 +16,16 @@
   stroke: white;
   stroke-opacity:1;
 }
+.disabled-link {
+  pointer-events: none; 
+  opacity: 0.8;
+  text-decoration: none;
+  cursor: not-allowed;
+}
+.text-style-none{
+  text-decoration: none;
+  color: white;
+}
 
 @media (max-width: 998px) {
   aside{

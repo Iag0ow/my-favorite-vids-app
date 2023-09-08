@@ -76,7 +76,18 @@ nav h5.my-favorite-videos-title{
     font-size: 28px;
     margin: 24px;
 }
-
+.offcanvas-body a:hover{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.offcanvas-body .search:focus-visible{
+    outline: red !important;
+}
+.nav-link{
+    margin-left: 25px;
+    font-size: 19px;
+}
 /* .login-page-box .btn-registrar{
     background-color: #000000;
     border: 1px solid white;
@@ -112,6 +123,9 @@ nav h5.my-favorite-videos-title{
 @media screen and (max-width: 998px) {
     nav ul{
         display: none;
+    }
+    nav{
+        justify-content: space-around;
     }
 }
 

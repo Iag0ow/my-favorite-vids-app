@@ -2,6 +2,20 @@
   padding: 0px;
   margin: 0px;
 }
+.active{
+  color: white;
+  fill: white;
+}
+.active svg path {
+  fill: white;
+  color: white;
+  fill-opacity: 1;
+}
+.active svg path#config1,.active svg path#config2{
+  fill: transparent;
+  stroke: white;
+  stroke-opacity:1;
+}
 
 @media (max-width: 998px) {
   aside{

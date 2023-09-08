@@ -1,0 +1,40 @@
+.editar-perfil{
+    max-width: 466px;
+    margin-top: 2%;
+}
+
+.editar-perfil button.btn-entrar{
+    font-size: 1.3rem;
+}
+.editar-perfil select{
+    font-size: 1.3rem;
+}
+
+.editar-perfil label {
+    font-size: 1.3rem !important;
+}
+.text-red{
+    color: #FF0321 !important;
+    font-size: 1.3rem !important;
+    cursor: pointer !important;
+}
+
+.text-red:hover{
+    color: #FF0321;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.btn-excluir{
+    background-color: #FF0321 !important;
+    transition: 0.5s;
+}
+.btn-excluir:hover{
+    background-color: #ff0320b0 !important;
+    transition: 0.5s;
+}
+@media screen and (max-width: 768px){
+    .perfil{
+        display: block;
+    }
+}
+    

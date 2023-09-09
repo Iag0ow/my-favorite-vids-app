@@ -11,7 +11,6 @@ export const login = async (loginForm) => {
   };
     const response = await fetch(`${API}/session/login`, config);
     const auth = await response.json();
-    console.log('response: ', auth);
   if (auth.statusCode) {
     let authorization = {
       auth: false,
@@ -43,5 +42,6 @@ export const getAuth = () => {
 
 export const logOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
   return true;
 };

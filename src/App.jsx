@@ -28,12 +28,21 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        {auth ? <Navbar/> : <Navigate to="/login" />}
+        {auth && <Navbar />}
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/perfil" element={<Perfil />} />
-          <Route path="/registrar" element={<Registrar />} />
-          <Route path="/" element={<Home />} />
+        <Route
+            path="/login"
+            element={
+              !auth ? (
+                <Login handleFunc={handleUpdateAuth} />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+          <Route path="/perfil" element={auth ?(<Perfil />):(<Navigate to="/login" />)} />
+          <Route path="/registrar" element={!auth ? (<Registrar />) : (<Navigate to="/" />)} />
+          <Route path="/" element={auth?(<Home />):(<Navigate to="/login" />)} />
         </Routes>
       </BrowserRouter>
     </div>

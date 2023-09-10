@@ -43,7 +43,8 @@ const Login = ({ handleFunc }) => {
                 <input required className="form-control form-control-lg mt-3" type="email" name="email" placeholder="Seu Email" onChange={(e) => setEmail(e.target.value)} value={email} />
                 <label className='mt-4'>Password</label>
                 <input required className="form-control form-control-lg mt-3" type="password" placeholder="Senha" onChange={(e) => setPassword(e.target.value)} value={password} />
-                <button type="submit" className="btn btn-entrar mt-4">Entrar</button>
+                {/* <button type="submit" className="btn btn-entrar mt-4">Entrar</button> */}
+            <button type="submit" className={`btn btn-entrar mt-4 ${loading ? 'disabled-link' : ''}`}>{loading ? 'Carregando...' : 'Entrar' }</button>
                 <div className="text-center mt-4 mb-4 ou-border">
                     <div></div>
                     <span>ou</span>

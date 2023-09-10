@@ -45,3 +45,37 @@ export const logOut = () => {
     localStorage.removeItem("user_id");
   return true;
 };
+
+export const getUser = async () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const config = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const result = await fetch(`${API}/user`, config);
+    const data = await result.json();
+    return data;
+  }
+}
+
+export const updateUser = async (user) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    const config = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(user),
+    };
+    let result = await fetch(`${API}/user`, config);
+    result = await result.json();
+    return result;
+  }
+};

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Perfil.css";
 import Aside from "../../components/Aside/Aside";
 import trash from "../../assets/images/icon/material_symbols_delete_outline.png";
 import { Link } from "react-router-dom";
+import { getUser,updateUser } from "../../utils/config";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -28,6 +29,22 @@ const responsiveStyle = {
   },
 }
 const Perfil = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [privy, setPrivy] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(false);
+  useEffect(() => {
+    async function fetchData() {
+      const user = await getUser();
+      setUsername(user.username);
+      setEmail(user.email);
+      setPrivy(user.privy);
+    }
+    fetchData();
+  }, []);
+
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -35,6 +52,21 @@ const Perfil = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const obj = {
+      username,
+      email,
+      privy
+    }
+    const result = await updateUser(obj);
+    setLoading(false);
+    setMessage(true);
+    setTimeout(() => {
+      setMessage(false);
+    }, 3000);
+  }
   return (
     <div className="home perfil">
       <Aside />
@@ -42,32 +74,33 @@ const Perfil = () => {
         <h2 className="text-center">Perfil</h2>
 
         <div className="login-page">
-          <form className="container login-page-box editar-perfil">
+          <form className="container login-page-box editar-perfil" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-12">
+                { message && <h3 className="text-success">Atualizado com sucesso!</h3> }
                 <label className="mt-5">Nome</label>
                 <input
                   className="form-control form-control-lg mt-3"
                   type="text"
                   name="email"
-                  value="Nicholas"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <label className="mt-4">Email</label>
                 <input
                   className="form-control form-control-lg mt-3"
                   type="email"
-                  value="Nicholas@gmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <label className="mt-3">
                 <div>Privacidade</div>
-                <select name="privacidade">
-                  <option value="Privado">Privado</option>
-                  <option value="Privado">Público</option>
+                <select name="privacidade" value={privy} onChange={(e) => setPrivy(e.target.value)}>
+                  <option value="true">Privado</option>
+                  <option value="false">Público</option>
                 </select>
                 </label>
-                <button type="submit" className="btn btn-entrar mt-4">
-                  Salvar
-                </button>
+                <button type="submit" className={`btn btn-entrar mt-4 ${loading ? 'disabled-link' : ''}`}>{loading ? 'Carregando...' : 'Salvar' }</button>
                 <div className="text-center mt-4 ou-border-register">
                 <div></div>
               </div>

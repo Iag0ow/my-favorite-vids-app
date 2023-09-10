@@ -26,7 +26,6 @@
   text-decoration: none;
   color: white;
 }
-
 @media (max-width: 998px) {
   aside{
    display: none; 

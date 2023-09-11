@@ -50,7 +50,7 @@ const Login = ({ handleFunc }) => {
                     <span>ou</span>
                     <div></div>
                 </div>
-                <Link to="/registrar" className="btn btn-registrar text-center"><span>Registra-se</span></Link>    
+                <Link to="/registrar" className="btn btn-registrar text-center"><span>Registre-se</span></Link>    
               </div>
             </div>
       </form>

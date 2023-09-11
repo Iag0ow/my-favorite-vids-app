@@ -93,7 +93,6 @@ export const deleteUser = async (user) => {
       body: JSON.stringify(user),
     };
     let result = await fetch(`${API}/user`, config);
-    console.log(result);
     if(result.status === 204){
       return true;
     }

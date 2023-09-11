@@ -11,10 +11,10 @@ export const login = async (loginForm) => {
   };
     const response = await fetch(`${API}/session/login`, config);
     const auth = await response.json();
-  if (auth.statusCode) {
+  if (auth.hasOwnProperty("error")) {
     let authorization = {
       auth: false,
-      message: auth.message,
+      message: auth.error.message,
     };
     return authorization;
   } else {
@@ -78,4 +78,27 @@ export const updateUser = async (user) => {
     result = await result.json();
     return result;
   }
+};
+
+export const deleteUser = async (user) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    const config = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(user),
+    };
+    let result = await fetch(`${API}/user`, config);
+    console.log(result);
+    if(result.status === 204){
+      return true;
+    }
+    result = await result.json();
+    return result;
+  }
+
 };

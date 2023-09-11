@@ -3,7 +3,7 @@ import "./Perfil.css";
 import Aside from "../../components/Aside/Aside";
 import trash from "../../assets/images/icon/material_symbols_delete_outline.png";
 import { Link } from "react-router-dom";
-import { getUser,updateUser } from "../../utils/config";
+import { getUser,updateUser,deleteUser,logOut} from "../../utils/config";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -31,9 +31,16 @@ const responsiveStyle = {
 const Perfil = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [privy, setPrivy] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(false);
+  const [messageDelete, setMessageDelete] = useState(false);
+
+  const [errorPassword, setErrorPassword] = useState([]);
+
   useEffect(() => {
     async function fetchData() {
       const user = await getUser();
@@ -66,6 +73,31 @@ const Perfil = () => {
     setTimeout(() => {
       setMessage(false);
     }, 3000);
+  }
+  const handleExclude = async () => {
+
+    setLoading(true);
+    if (password !== confirmPassword) {
+      setMessageDelete(true);
+      setTimeout(() => {
+        setMessageDelete(false);
+        setLoading(false);
+      }, 3000);
+      return;
+    }
+
+    const obj = {
+      password
+    }
+    const result = await deleteUser(obj);
+    if (result.hasOwnProperty("error")) {
+      setErrorPassword(result.error.message);
+      setLoading(false);
+      return;
+    }
+    setLoading(false);
+    logOut();
+    window.location.reload();
   }
   return (
     <div className="home perfil">
@@ -119,11 +151,13 @@ const Perfil = () => {
         >
           <Box sx={{ ...style, ...responsiveStyle, width: 400, paddingBottom: 7 }}>
             <h3 id="parent-modal-title" className="pt-4">Deseja excluir sua conta?</h3>
-            <label className='mt-5'>Digite sua senha</label>
-                <input className="form-control form-control-lg mt-3" type="password" name="email" placeholder="Senha" />
-                <label className='mt-4'>Confirme sua senha</label>
-                <input className="form-control form-control-lg mt-3" type="password" placeholder="Senha" />
-                <button type="submit" className="btn btn-excluir mt-4 bg-danger text-white w-100">Excluir</button>
+            {errorPassword.length > 0 && errorPassword.map((item, i) => <h5 key={i} className="text-success text-danger mt-3 text-center">{item}</h5>)}
+            {messageDelete && <h5 className="text-success text-danger mt-3">As senhas estão divergentes</h5>}
+            <label className='mt-4'>Digite sua senha</label>
+            <input className="form-control form-control-lg mt-3" type="password" name="password-recover" placeholder="Senha" onChange={(e)=> setPassword(e.target.value)} />
+            <label className='mt-4'>Confirme sua senha</label>
+            <input className="form-control form-control-lg mt-3" type="password" name="confirm-password" placeholder="Senha" onChange={(e) => setConfirmPassword(e.target.value)} />
+            <button className={`btn btn-excluir mt-4 bg-danger text-white w-100 ${loading ? 'disabled-link' : ''}`} onClick={handleExclude}>{loading ? 'Excluindo...' : 'Excluir' }</button>
           </Box>
         </Modal>
       </div>

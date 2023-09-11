@@ -118,7 +118,7 @@ const Navbar = () => {
           </ul>
           <form className="d-flex mt-3" role="search">
             <div className="search ms-auto me-5 pe-5">
-              <input type="text" placeholder="Pesquisar"></input>
+              <input type="text" name="search" placeholder="Pesquisar"></input>
             </div>
           </form>
         </div>

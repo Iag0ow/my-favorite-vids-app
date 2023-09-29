@@ -1,18 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Navigate,
   BrowserRouter,
   Routes,
-  useLocation
+  useLocation,
 } from "react-router-dom";
-import './App.css'
-import Login from './pages/login/Login';
-import Home from './pages/home/Home';
-import Navbar from './components/Navbar/Navbar';
-import Perfil from './pages/perfil/Perfil';
-import Registrar from './pages/registrar/Registrar';
+import "./App.css";
+import Login from "./pages/login/Login";
+import Home from "./pages/home/Home";
+import Navbar from "./components/Navbar/Navbar";
+import Perfil from "./pages/perfil/Perfil";
+import Registrar from "./pages/registrar/Registrar";
+import Categoria from "./pages/categoria/Categoria";
+import CriarCategoria from "./pages/categoria/subcategoria/CriarCategoria";
+import EditarCategoria from "./pages/categoria/subcategoria/EditarCategoria";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -30,7 +33,7 @@ function App() {
       <BrowserRouter>
         {auth && <Navbar />}
         <Routes>
-        <Route
+          <Route
             path="/login"
             element={
               !auth ? (
@@ -40,13 +43,34 @@ function App() {
               )
             }
           />
-          <Route path="/perfil" element={auth ?(<Perfil />):(<Navigate to="/login" />)} />
-          <Route path="/registrar" element={!auth ? (<Registrar />) : (<Navigate to="/" />)} />
-          <Route path="/" element={auth?(<Home />):(<Navigate to="/login" />)} />
+          <Route
+            path="/perfil"
+            element={auth ? <Perfil /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/categoria"
+            element={auth ? <Categoria /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/registrar"
+            element={!auth ? <Registrar /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/editar/categoria"
+            element={auth ? <EditarCategoria /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/criar/categoria"
+            element={auth ? <CriarCategoria /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/"
+            element={auth ? <Home /> : <Navigate to="/login" />}
+          />
         </Routes>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

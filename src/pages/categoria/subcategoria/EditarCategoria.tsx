@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "./Perfil.css";
-import Aside from "../../components/Aside/Aside";
-import trash from "../../assets/images/icon/material_symbols_delete_outline.png";
+import "../Categoria.css";
+import Aside from "../../../components/Aside/Aside";
+import trash from "../../../assets/images/icon/material_symbols_delete_outline.png";
 import { Link } from "react-router-dom";
-import { getUser,updateUser,deleteUser,logOut} from "../../utils/config";
+import { getUser,updateUser,deleteUser,logOut} from "../../../utils/config";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -28,7 +28,7 @@ const responsiveStyle = {
     width: 351,
   },
 }
-const Perfil = () => {
+const EditarCategoria = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -103,27 +103,26 @@ const Perfil = () => {
     <div className="home perfil">
       <Aside />
       <div className="container">
-        <h2 className="text-center">Perfil</h2>
+        <h2 className="text-center">Editar categoria</h2>
 
         <div className="login-page">
-          <form className="container login-page-box editar-perfil" onSubmit={handleSubmit}>
+          <form className="container edit-page-box editar-perfil" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-12">
                 { message && <h3 className="text-success">Atualizado com sucesso!</h3> }
-                <label className="mt-5">Nome</label>
+                <label className="mt-3">Categoria</label>
+                <select className="form-control form-control-lg mt-3 select-black" name="privacidade">
+                  <option disabled value="" selected>Selecione uma categoria</option>
+                  <option className="text-white" value="true">Videos Engraçados</option>
+                  <option className="text-white" value="true">Clipes de terror</option>
+                  <option className="text-white" value="true">Memes</option>
+                  <option className="text-white" value="false">Videos Famosos</option>
+                </select>
+                <label className="mt-4">Nome da categoria</label>
                 <input
-                  className="form-control form-control-lg mt-3"
+                  className="form-control form-control-lg mt-3 text-white"
                   type="text"
-                  name="email"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <label className="mt-4">Email</label>
-                <input
-                  className="form-control form-control-lg mt-3"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Nome da categoria"
                 />
                 <label className="mt-3">
                 <div>Privacidade</div>
@@ -166,4 +165,4 @@ const Perfil = () => {
   );
 };
 
-export default Perfil;
+export default EditarCategoria;

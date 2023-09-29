@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "./Perfil.css";
-import Aside from "../../components/Aside/Aside";
-import trash from "../../assets/images/icon/material_symbols_delete_outline.png";
+import "../Categoria.css";
+import Aside from "../../../components/Aside/Aside";
+import trash from "../../../assets/images/icon/material_symbols_delete_outline.png";
 import { Link } from "react-router-dom";
-import { getUser,updateUser,deleteUser,logOut} from "../../utils/config";
+import { getUser,updateUser,deleteUser,logOut} from "../../../utils/config";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -28,7 +28,7 @@ const responsiveStyle = {
     width: 351,
   },
 }
-const Perfil = () => {
+const CriarCategoria = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -103,27 +103,18 @@ const Perfil = () => {
     <div className="home perfil">
       <Aside />
       <div className="container">
-        <h2 className="text-center">Perfil</h2>
+        <h2 className="text-center">Criar categoria</h2>
 
         <div className="login-page">
-          <form className="container login-page-box editar-perfil" onSubmit={handleSubmit}>
+          <form className="container edit-page-box editar-perfil" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-12">
                 { message && <h3 className="text-success">Atualizado com sucesso!</h3> }
-                <label className="mt-5">Nome</label>
+                <p className="text-center"><label className="mt-3 text-center">Nome da categoria</label></p>
                 <input
-                  className="form-control form-control-lg mt-3"
+                  className="form-control form-control-lg mt-3 text-white"
                   type="text"
-                  name="email"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-                <label className="mt-4">Email</label>
-                <input
-                  className="form-control form-control-lg mt-3"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Ex: videos de quedas de moto"
                 />
                 <label className="mt-3">
                 <div>Privacidade</div>
@@ -132,7 +123,7 @@ const Perfil = () => {
                   <option value="false">Público</option>
                 </select>
                 </label>
-                <button type="submit" className={`btn btn-entrar mt-4 ${loading ? 'disabled-link' : ''}`}>{loading ? 'Carregando...' : 'Salvar' }</button>
+                <button type="submit" className={`btn btn-entrar mt-4 ${loading ? 'disabled-link' : ''}`}>{loading ? 'Carregando...' : 'Criar categoria' }</button>
                 <div className="text-center mt-4 ou-border-register">
                 <div></div>
               </div>
@@ -166,4 +157,4 @@ const Perfil = () => {
   );
 };
 
-export default Perfil;
+export default CriarCategoria;

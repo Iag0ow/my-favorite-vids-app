@@ -1,0 +1,61 @@
+.ou-border-categoria{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ou-border-categoria div{
+    width: 75%;
+    height: 1px;
+    background-color: white;
+}
+
+.edit-page-box{
+    background-color: rgba(217, 217, 217, 0.1);
+    padding: 50px;
+    padding-top: 0px;
+    max-width: 450px;
+    margin-top: 5%;
+    margin-bottom: 50px;
+}
+
+.edit-page-box label{
+    padding: 0px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.edit-page-box .btn-entrar{
+    background-color: white;
+    font-weight: bold;
+    width: 100%;
+    font-size: 24px;
+}
+.edit-page-box .btn-entrar:hover{
+    color: #000000;
+}
+.edit-page-box input{
+    background-color: #000000;
+    color: white;
+}
+.edit-page-box input::placeholder{
+    background-color: #000000;
+    color: rgba(255, 255, 255, 0.664);
+}
+.edit-page-box input:focus{
+    background-color: #000000;
+    color: white;
+}
+.edit-page-box .btn-registrar{
+    background-color: #000000;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    font-size: 24px;
+    position: relative;
+}
+.select-black{
+    background-color: #000000 !important;
+    color: rgba(255, 255, 255, 0.664) !important;
+}

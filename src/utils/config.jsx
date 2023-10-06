@@ -133,8 +133,29 @@ export const getAllVideos = async () => {
         Authorization: `Bearer ${token}`,
       }
     };
-    const result = await fetch(`${API}/videos`, config);
+    const result = await fetch(`${API}/user/videos`, config);
     const data = await result.json();
     return data;
   }
 }
+
+
+export const deleteVideo = async (videoId) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    const config = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let result = await fetch(`${API}/user/videos/${videoId}`, config);
+    if(result.ok){
+      return true;
+    }
+    result = await result.json();
+    return result;
+  };
+};

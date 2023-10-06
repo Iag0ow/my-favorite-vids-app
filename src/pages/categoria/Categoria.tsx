@@ -1,12 +1,8 @@
 import "./Categoria.css";
 import React, { useState, useEffect } from "react";
 import Aside from "../../components/Aside/Aside";
-import trash from "../../assets/images/icon/material_symbols_delete_outline.png";
 import { Link } from "react-router-dom";
 import { getUser,updateUser,deleteUser,logOut} from "../../utils/config";
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
 
 const style = {
   position: 'absolute' as 'absolute',

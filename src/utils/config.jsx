@@ -98,6 +98,43 @@ export const deleteUser = async (user) => {
     }
     result = await result.json();
     return result;
-  }
-
+  };
 };
+
+export const createVideo = async (userId) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(userId),
+    };
+    let result = await fetch(`${API}/videos`, config);
+    if(result.ok){
+      return true;
+    }
+    result = await result.json();
+    return result;
+  };
+};
+
+
+export const getAllVideos = async () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const config = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+    const result = await fetch(`${API}/videos`, config);
+    const data = await result.json();
+    return data;
+  }
+}

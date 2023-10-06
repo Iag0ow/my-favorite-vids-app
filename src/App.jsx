@@ -16,6 +16,7 @@ import Registrar from "./pages/registrar/Registrar";
 import Categoria from "./pages/categoria/Categoria";
 import CriarCategoria from "./pages/categoria/subcategoria/CriarCategoria";
 import EditarCategoria from "./pages/categoria/subcategoria/EditarCategoria";
+import Video from "./pages/videos/Video";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -62,6 +63,10 @@ function App() {
           <Route
             path="/criar/categoria"
             element={auth ? <CriarCategoria /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/videos"
+            element={auth ? <Video /> : <Navigate to="/login" />}
           />
           <Route
             path="/"

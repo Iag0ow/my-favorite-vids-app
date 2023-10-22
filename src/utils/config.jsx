@@ -56,7 +56,7 @@ export const getUser = async () => {
         Authorization: `Bearer ${token}`,
       }
     };
-    const result = await fetch(`${API}/user`, config);
+    const result = await fetch(`${API}/api-user/profile`, config);
     const data = await result.json();
     return data;
   }
@@ -74,7 +74,7 @@ export const updateUser = async (user) => {
       },
       body: JSON.stringify(user),
     };
-    let result = await fetch(`${API}/user`, config);
+    let result = await fetch(`${API}/api-user/profile`, config);
     result = await result.json();
     return result;
   }
@@ -92,7 +92,7 @@ export const deleteUser = async (user) => {
       },
       body: JSON.stringify(user),
     };
-    let result = await fetch(`${API}/user`, config);
+    let result = await fetch(`${API}/api-user/profile`, config);
     if(result.status === 204){
       return true;
     }
@@ -113,7 +113,7 @@ export const createVideo = async (data) => {
       },
       body: JSON.stringify(data),
     };
-    let result = await fetch(`${API}/user/videos`, config);
+    let result = await fetch(`${API}/api-user/videos`, config);
     if(result.ok){
       return true;
     }
@@ -133,7 +133,7 @@ export const getAllVideos = async () => {
         Authorization: `Bearer ${token}`,
       }
     };
-    const result = await fetch(`${API}/user/videos`, config);
+    const result = await fetch(`${API}/api-user/videos`, config);
     const data = await result.json();
     return data;
   }
@@ -151,7 +151,7 @@ export const deleteVideo = async (videoId) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    let result = await fetch(`${API}/user/videos/${videoId}`, config);
+    let result = await fetch(`${API}/api-user/videos/${videoId}`, config);
     if(result.ok){
       return true;
     }
@@ -171,7 +171,7 @@ export const getPlatforms = async () => {
         Authorization: `Bearer ${token}`,
       },
     };
-    let result = await fetch(`${API}/user/videos/platforms`, config);
+    let result = await fetch(`${API}/api-user/videos/platforms`, config);
     result = await result.json();
 
     return result;
@@ -190,7 +190,7 @@ export const updateVideo = async (id,body) => {
       },
       body: JSON.stringify(body),
     };
-    let result = await fetch(`${API}/user/videos/${id}`, config);
+    let result = await fetch(`${API}/api-user/videos/${id}`, config);
     result = await result.json();
     return result;
   }
@@ -206,7 +206,7 @@ export const getVideoById = async (id) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    let result = await fetch(`${API}/user/videos/${id}`, config);
+    let result = await fetch(`${API}/api-user/videos/${id}`, config);
     result = await result.json();
     return result;
   }

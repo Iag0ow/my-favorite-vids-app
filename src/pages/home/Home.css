@@ -27,6 +27,7 @@ iframe{
     box-shadow: 0px 9px 13px #000000a1;
     cursor: pointer;
     padding: 12px;
+    transition: 0.5s;
 }
 
 .fa-pen{
@@ -36,6 +37,17 @@ iframe{
 .fa-trash{
     color: white;
     background-color: #ff000096;
+}
+
+.fa-pen:hover{
+    color: white;
+    background-color: #0000ff;
+    transition: 0.5s;
+}
+.fa-trash:hover{
+    color: white;
+    background-color: #ff0000;
+    transition: 0.5s;
 }
 
 /* Arquivo de estilo ou estilo embutido no componente React */
@@ -66,4 +78,11 @@ iframe{
     background: #0000ff6e !important;
     color: white;
   }
-  
+  .btn-alterar-video{
+    background: #0000ff6e !important;
+    transition: 0.5s;
+  }
+  .btn-alterar-video:hover{
+    background: #5050fc6e !important;
+    transition: 0.5s;
+  }

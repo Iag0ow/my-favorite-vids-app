@@ -160,7 +160,6 @@ const EditarCategoria = () => {
           </Box>
         </Modal>
       </div>
-      <Button onClick={handleOpen} className="text-red mt-auto d-flex align-items-center me-5 mb-5"><img className="me-2" src={trash}/>Excluir conta</Button>
     </div>
   );
 };

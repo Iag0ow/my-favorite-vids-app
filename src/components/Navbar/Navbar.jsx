@@ -2,38 +2,36 @@ import React from "react";
 import hamburger from "../../assets/images/icon/hamburguer.png";
 import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
-import { useEffect,useState } from "react";
+import { useEffect,useState,useContext } from "react";
 import { getPlatforms } from "../../utils/config";
-import { createBrowserHistory } from 'history';
+import { useNavContext } from '../../context/NavBarInfContext';
 const Navbar = () => {
-  const history = createBrowserHistory();
+
+  const {navBarData, updateNavBarData, updateComponentNav } = useContext(useNavContext);
   const [platforms, setPlatforms] = useState([]);
   const [plataformaAtiva, setPlataformaAtiva] = useState(null);
   const handlePlataformaClick = (plataforma) => {
-    setPlataformaAtiva(plataforma === plataformaAtiva ? plataforma : plataforma);
+    updateNavBarData(plataforma);
   };
 
   useEffect(() => {
     const fetchData = async () => {
         const dataPlatform = await getPlatforms();
         setPlatforms(dataPlatform);
-        if (dataPlatform.length > 0) {
-          setPlataformaAtiva(dataPlatform[0]);
-        }
     };
   
     fetchData();
-  }, []);
+  }, [updateComponentNav]);
 
   return (
     <nav className="mb-5">
       <h5 className="my-favorite-videos-title">
-        <Link className="navbar-brand" to="/">My Favorite<span> Videos</span></Link>
+        <Link className="navbar-brand" to={`/${navBarData ? navBarData : ""}`}>My Favorite<span> Videos</span></Link>
       </h5>
       <ul>
         {platforms && platforms.map((platform) => (
           <li key={platform}>
-            <Link to={`/${platform}`} className={`nav-link-uppercase ${platform === plataformaAtiva ? "active-platform" : ""}`} onClick={() => handlePlataformaClick(platform)}>{platform}</Link>
+            <Link to={`/${platform}`} className={`nav-link-uppercase ${platform == navBarData ? "active-platform" : ""}`} onClick={() => handlePlataformaClick(platform)}>{platform}</Link>
           </li>
         ))}
       </ul>

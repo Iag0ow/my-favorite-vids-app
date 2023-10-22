@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import "./Video.css";
 import Aside from "../../components/Aside/Aside";
 import { Link } from "react-router-dom";
@@ -29,7 +29,11 @@ const responsiveStyle = {
     width: 351,
   },
 }
+import { useNavContext } from '../../context/NavBarInfContext';
 const Video = () => {
+
+
+  const {navBarData,updateComponentNav,updateNavPlatform } = useContext(useNavContext);
   const [allVideos, setAllVideos] = useState([]);
 
   const [title, setTitle] = useState('');
@@ -96,6 +100,11 @@ const Video = () => {
     setMessageErrorStatus(false);
     setLoadingCadastrar(false);
     setMessage(true);
+    if(updateComponentNav == true){
+      updateNavPlatform(false);
+    }else {
+      updateNavPlatform(true);
+    }
     setTimeout(() => {
       setMessage(false);
       setTitle('');
@@ -131,7 +140,11 @@ const Video = () => {
     }
 
     setMessageDelete(true);
-
+    if(updateComponentNav == true){
+      updateNavPlatform(false);
+    }else {
+      updateNavPlatform(true);
+    }
     setTimeout(() => {
       setMessageDelete(false);
     }, 3000);

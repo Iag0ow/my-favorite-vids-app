@@ -1,23 +1,24 @@
-import React from 'react'
-import "./Aside.css"
-
 import {logOut} from "../../utils/config";
-
 import { NavLink } from 'react-router-dom';
+import {React,useContext} from 'react'
+import "./Aside.css"
+import { useNavContext } from '../../context/NavBarInfContext';
 
 const Aside = () => {
+
+  const {navBarData, updateNavBarData } = useContext(useNavContext);
+
   const handleLogout = () => {
     const result = logOut();
     if(result) {
       window.location.reload();
     }
   }
-  
   return (
       <aside>
         <ul className="mb-5 pb-5">
             <h4 className='mb-3'>MENU</h4>
-            <li><NavLink to="/"><svg className='me-3' width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <li><NavLink to={`/${navBarData ? navBarData : ""}`}><svg className='me-3' width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path id="home-icon"  d="M20.335 10.8496L11.4856 2.00664C11.4218 1.9428 11.3462 1.89215 11.2629 1.85759C11.1795 1.82303 11.0902 1.80524 11 1.80524C10.9098 1.80524 10.8205 1.82303 10.7372 1.85759C10.6539 1.89215 10.5782 1.9428 10.5145 2.00664L1.66506 10.8496C1.40725 11.1074 1.26115 11.4576 1.26115 11.8229C1.26115 12.5813 1.87776 13.1979 2.63615 13.1979H3.56858V19.5078C3.56858 19.8881 3.8758 20.1953 4.25608 20.1953H9.62502V15.3828H12.0313V20.1953H17.744C18.1242 20.1953 18.4315 19.8881 18.4315 19.5078V13.1979H19.3639C19.7291 13.1979 20.0793 13.0539 20.3371 12.7939C20.8721 12.2568 20.8721 11.3867 20.335 10.8496Z" fill="#838282"/>
             </svg>Home</NavLink></li>
             {/* <li><a href="#">

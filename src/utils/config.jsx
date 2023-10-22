@@ -177,3 +177,37 @@ export const getPlatforms = async () => {
     return result;
   };
 };
+
+export const updateVideo = async (id,body) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    const config = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    };
+    let result = await fetch(`${API}/user/videos/${id}`, config);
+    result = await result.json();
+    return result;
+  }
+};
+
+export const getVideoById = async (id) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const config = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let result = await fetch(`${API}/user/videos/${id}`, config);
+    result = await result.json();
+    return result;
+  }
+}

@@ -17,6 +17,7 @@ import Categoria from "./pages/categoria/Categoria";
 import CriarCategoria from "./pages/categoria/subcategoria/CriarCategoria";
 import EditarCategoria from "./pages/categoria/subcategoria/EditarCategoria";
 import Video from "./pages/videos/Video";
+import { NavBarInfProvider } from "./context/NavBarInfContext";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -31,49 +32,51 @@ function App() {
   }, []);
   return (
     <div>
-      <BrowserRouter>
-        {auth && <Navbar />}
-        <Routes>
-          <Route
-            path="/login"
-            element={
-              !auth ? (
-                <Login handleFunc={handleUpdateAuth} />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/perfil"
-            element={auth ? <Perfil /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/categoria"
-            element={auth ? <Categoria /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/registrar"
-            element={!auth ? <Registrar /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/editar/categoria"
-            element={auth ? <EditarCategoria /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/criar/categoria"
-            element={auth ? <CriarCategoria /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/videos"
-            element={auth ? <Video /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/:platformParam?"
-            element={auth ? <Home /> : <Navigate to="/login" />}
-          />
-        </Routes>
-      </BrowserRouter>
+      <NavBarInfProvider>
+        <BrowserRouter>
+          {auth && <Navbar />}
+          <Routes>
+            <Route
+              path="/login"
+              element={
+                !auth ? (
+                  <Login handleFunc={handleUpdateAuth} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/perfil"
+              element={auth ? <Perfil /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/categoria"
+              element={auth ? <Categoria /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/registrar"
+              element={!auth ? <Registrar /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/editar/categoria"
+              element={auth ? <EditarCategoria /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/criar/categoria"
+              element={auth ? <CriarCategoria /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/videos"
+              element={auth ? <Video /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/:platformParam?"
+              element={auth ? <Home /> : <Navigate to="/login" />}
+            />
+          </Routes>
+        </BrowserRouter>
+      </NavBarInfProvider>
     </div>
   );
 }

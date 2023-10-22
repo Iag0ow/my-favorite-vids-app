@@ -71,7 +71,7 @@ const Aside = () => {
         </ul>
           
         <ul className="mt-5 pt-5">
-            <h4>FILTRO</h4>
+            {/* <h4>FILTRO</h4> */}
             {/* <li><a href="#">Home</a></li> */}
         </ul>   
     </aside>

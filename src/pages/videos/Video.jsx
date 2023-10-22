@@ -34,6 +34,7 @@ const Video = () => {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [platform, setPlatform] = useState('');
   const [url, setUrl] = useState('');
   const [privy, setPrivy] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -43,6 +44,8 @@ const Video = () => {
 
   const [message, setMessage] = useState(false);
   const [excludeId, setExcludeId] = useState("");
+  const [messageError, setMessageError] = useState("");
+  const [messageErrorStatus, setMessageErrorStatus] = useState(false);
   const [messageDelete, setMessageDelete] = useState(false);
   const [messageFail, setMessageFail] = useState(false);
   
@@ -70,26 +73,34 @@ const Video = () => {
     e.preventDefault();
     setLoadingCadastrar(true);
     const obj = {
-        user_id,
+        // user_id,
         title,
         description,
+        platform,
         url,
         privy
    }
-    if(url.includes("youtube")){
-        obj.url = url.replace("/shorts/", "/embed/");
-    }
+    // if(url.includes("youtube")){
+    //     obj.url = url.replace("/shorts/", "/embed/");
+    // }
     const result = await createVideo(obj);
     if (result.hasOwnProperty("error")) {
       setLoadingCadastrar(false);
+      setMessageErrorStatus(true);
+      setMessageError(result.error.message);
+      // setTimeout(() => {
+      //   setMessageErrorStatus(false);
+      // }, 6000);
       return;
     }
+    setMessageErrorStatus(false);
     setLoadingCadastrar(false);
     setMessage(true);
     setTimeout(() => {
       setMessage(false);
       setTitle('');
       setDescription('');
+      setPlatform('');
       setUrl('');
       setPrivy('');
     }, 2000);
@@ -137,44 +148,56 @@ const Video = () => {
           <form className="container login-page-box editar-video" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-md-12">
-                { message && <h3 className="text-success">Atualizado com sucesso!</h3> }
-                <label className="mt-2">Título</label>
-                <input
-                  className="form-control form-control-lg mt-3"
-                  type="text"
-                  name="email"
-                  value={title}
-                  placeholder="Nome do Video"
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-                <label className="mt-4">Descrição</label>
-                <textarea
-                  className="form-control form-control-lg mt-3 videos-page-box"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Descrição do Video"
-                />
-                <label className="mt-3">Url</label>
-                <input
-                  className="form-control form-control-lg mt-3"
-                  type="text"
-                  name="email"
-                  placeholder="Url do Video"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                />
-              <label className="mt-3">
-                <div>Privacidade</div>
-                <select className="privacy-select" name="privacidade" value={privy} onChange={(e) => setPrivy(e.target.value)}>
-                  <option value="" disabled>Selecione</option>
-                  <option value="true">Privado</option>
-                  <option value="false">Público</option>
-                </select>
-                </label>
+                  { message && <h3 className="text-success text-center">Video cadastrado com sucesso!</h3> }
+                  { messageErrorStatus && messageError.map((error, index) => (
+                    <h3 key={index} className="text-danger text-center">{error}</h3>
+                  ))}
+                  <label className="mt-2">Título</label>
+                  <input
+                    className="form-control form-control-lg mt-3"
+                    type="text"
+                    name="email"
+                    value={title}
+                    placeholder="Nome do Video"
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <label className="mt-4">Descrição</label>
+                  <textarea
+                    className="form-control form-control-lg mt-3 videos-page-box"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Descrição do Video"
+                  />
+                  <label className="mt-3">Url</label>
+                  <input
+                    className="form-control form-control-lg mt-3"
+                    type="text"
+                    name="email"
+                    placeholder="Url do Video"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                  />
+                <div className="d-flex">
+                  <label className="mt-3 me-3">
+                    <div>Plataforma</div>
+                      <select className="privacy-select" name="plataforma" value={platform} onChange={(e) => setPlatform(e.target.value)}>
+                        <option value="" disabled>Selecione</option>
+                        <option value="shorts">YouTube</option>
+                        <option value="reel">Instagram</option>
+                        <option value="tiktok">TikTok</option>
+                      </select>
+                  </label>
+                  <label className="mt-3">
+                    <div>Privacidade</div>
+                      <select className="privacy-select" name="privacidade" value={privy} onChange={(e) => setPrivy(e.target.value)}>
+                        <option value="" disabled>Selecione</option>
+                        <option value="true">Privado</option>
+                        <option value="false">Público</option>
+                      </select>
+                  </label>
+                </div>
                 <button type="submit" className={`btn btn-entrar mt-4 ${loadingCadastrar ? 'disabled-link' : ''}`}>{loadingCadastrar ? 'Carregando...' : 'Cadastrar' }</button>
-                <div className="text-center mt-4 ou-border-register">
-                <div></div>
-              </div>
+                <div className="text-center mt-4 ou-border-register"></div>
               </div>
             </div>
           </form>
@@ -196,7 +219,7 @@ const Video = () => {
               <h4 className="text-center mt-4 mb-3">Escolha um vídeo</h4>
             <select className="privacy-select" name="exclusao" onChange={(e) => setExcludeId(e.target.value)}>
                 <option value="" selected disabled>Selecione um video</option>
-                {allVideos && allVideos.map((item, i) => <option key={i} value={item._id}>{item.title}</option>)}
+                {allVideos.data && allVideos.data.map((item, i) => <option key={i} value={item._id}>{item.title}</option>)}
             </select>
             </div>
             <button className={`btn btn-excluir mt-4 bg-danger text-white w-100 ${loading ? 'disabled-link' : ''}`} onClick={handleExclude}>{loading ? 'Excluindo...' : 'Excluir' }</button>

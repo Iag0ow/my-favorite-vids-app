@@ -69,7 +69,7 @@ function App() {
             element={auth ? <Video /> : <Navigate to="/login" />}
           />
           <Route
-            path="/"
+            path="/:platformParam?"
             element={auth ? <Home /> : <Navigate to="/login" />}
           />
         </Routes>

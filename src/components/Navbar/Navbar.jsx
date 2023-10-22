@@ -1,23 +1,41 @@
 import React from "react";
 import hamburger from "../../assets/images/icon/hamburguer.png";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useEffect,useState } from "react";
+import { getPlatforms } from "../../utils/config";
+import { createBrowserHistory } from 'history';
 const Navbar = () => {
+  const history = createBrowserHistory();
+  const [platforms, setPlatforms] = useState([]);
+  const [plataformaAtiva, setPlataformaAtiva] = useState(null);
+  const handlePlataformaClick = (plataforma) => {
+    setPlataformaAtiva(plataforma === plataformaAtiva ? plataforma : plataforma);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+        const dataPlatform = await getPlatforms();
+        setPlatforms(dataPlatform);
+        if (dataPlatform.length > 0) {
+          setPlataformaAtiva(dataPlatform[0]);
+        }
+    };
+  
+    fetchData();
+  }, []);
+
   return (
     <nav className="mb-5">
       <h5 className="my-favorite-videos-title">
         <Link className="navbar-brand" to="/">My Favorite<span> Videos</span></Link>
       </h5>
       <ul>
-        <li>
-          <a href="#">Geral</a>
-        </li>
-        <li>
-          <a href="#">YouTube</a>
-        </li>
-        <li>
-          <a href="#">TikTok</a>
-        </li>
+        {platforms && platforms.map((platform) => (
+          <li key={platform}>
+            <Link to={`/${platform}`} className={`nav-link-uppercase ${platform === plataformaAtiva ? "active-platform" : ""}`} onClick={() => handlePlataformaClick(platform)}>{platform}</Link>
+          </li>
+        ))}
       </ul>
       <button
         className="navbar-toggler d-lg-none"

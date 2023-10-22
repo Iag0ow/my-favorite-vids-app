@@ -6,3 +6,64 @@ body{
     display: flex;
     color: white;
 }
+.card-video{
+    /* background-color: #0000fc1f; */
+    border-radius: 20px;
+    margin-right: 20px;
+    border: 1px solid white;
+}
+.card-video p{
+    margin-top: 5px;
+}
+iframe{
+    border-radius: 20px;
+    margin-top: 20px;
+}
+.fa-pen,
+.fa-trash,
+.fa-plus {
+    font-size: 1.5em !important;
+    border-radius: 50%;
+    box-shadow: 0px 9px 13px #000000a1;
+    cursor: pointer;
+    padding: 12px;
+}
+
+.fa-pen{
+    color: white;
+    background-color: #0000ff6e;
+}
+.fa-trash{
+    color: white;
+    background-color: #ff000096;
+}
+
+/* Arquivo de estilo ou estilo embutido no componente React */
+.custom-swal-popup {
+    background: black;
+    color: white;
+    border: 1px solid white;
+  }
+  
+  .custom-swal-confirm-button {
+    background: #ff000096 !important;
+    color: black;
+  }
+  
+  .custom-swal-cancel-button {
+    background: #0000ff6e !important;
+    color: black;
+  }
+  
+  /* Arquivo de estilo ou estilo embutido no componente React */
+.custom-swal-popup-success {
+    background: black;
+    color: white;
+    border: 1px solid white !important;
+  }
+  
+  .custom-swal-confirm-button-success {
+    background: #0000ff6e !important;
+    color: white;
+  }
+  

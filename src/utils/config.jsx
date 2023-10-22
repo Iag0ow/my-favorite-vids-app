@@ -101,7 +101,7 @@ export const deleteUser = async (user) => {
   };
 };
 
-export const createVideo = async (userId) => {
+export const createVideo = async (data) => {
   const token = localStorage.getItem("token");
 
   if (token) {
@@ -111,9 +111,9 @@ export const createVideo = async (userId) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(userId),
+      body: JSON.stringify(data),
     };
-    let result = await fetch(`${API}/videos`, config);
+    let result = await fetch(`${API}/user/videos`, config);
     if(result.ok){
       return true;
     }
@@ -156,6 +156,24 @@ export const deleteVideo = async (videoId) => {
       return true;
     }
     result = await result.json();
+    return result;
+  };
+};
+
+export const getPlatforms = async () => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    const config = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let result = await fetch(`${API}/user/videos/platforms`, config);
+    result = await result.json();
+
     return result;
   };
 };

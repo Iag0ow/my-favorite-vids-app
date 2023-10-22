@@ -48,6 +48,8 @@ const Home = () => {
 
   const [platform, setPlatform] = useState("");
   const [allVideos, setAllVideos] = useState([]);
+  const [message, setMessage] = useState("");
+  const [messageFail,setMessageFail] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     description: "",

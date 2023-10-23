@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Aside from "../../components/Aside/Aside";
+import ReactPaginate from "react-paginate";
 import "./Home.css";
 import {
   deleteVideo,
@@ -15,6 +16,8 @@ import ReactDOMServer from "react-dom/server";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const style = {
   position: 'absolute',
@@ -36,6 +39,7 @@ const responsiveStyle = {
     width: 351,
   },
 }
+
 const Home = () => {
   
   const { platformParam } = useParams();
@@ -197,6 +201,7 @@ const Home = () => {
                   <div
                     key={index}
                     className="col-md-4 col-lg-3 mb-3 card-video"
+                    style={{wordBreak:"break-word"}}
                   >
                     <iframe
                       width="100%"
@@ -227,7 +232,8 @@ const Home = () => {
                 platform === video.platform && (
                   <div
                     key={index}
-                    className="col-md-4 col-lg-3 mb-3 card-video"
+                    className="col-md-4 col-lg-3 mb-3 card-video word-break"
+                    style={{wordBreak:"break-word"}}
                   >
                     <iframe
                       width="100%"
@@ -261,6 +267,26 @@ const Home = () => {
               <i class="fa-solid fa-trash fa-2x"></i>
             </div>
           </div> */}
+        </div>
+        <div>
+            <ReactPaginate
+              breakLabel={"..."}
+              pageCount={10}
+              // onPageChange={}
+              containerClassName={
+                "pagination justify-content-center pe-3 mt-4 not-selectable"
+              }
+              pageClassName={"page-item"}
+              previousClassName={"page-item"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+              pageLinkClassName={"page-link"}
+              previousLinkClassName={"page-link"}
+              breakLinkClassName={"page-link"}
+              activeClassName={"active"}
+              // marginPagesDisplayed={widthScreen <= 767 ? 1 : 2}
+              // pageRangeDisplayed={widthScreen <= 767 ? 1 : 3}
+            />
         </div>
       </div>
       <div>

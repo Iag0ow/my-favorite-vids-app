@@ -86,3 +86,25 @@ iframe{
     background: #5050fc6e !important;
     transition: 0.5s;
   }
+  .not-selectable{
+    user-select: none;
+  }
+  .page-link {
+    background-color: black;
+    color: #fff;
+}
+.pagination{
+    --bs-pagination-active-bg: #00006e;
+    --bs-pagination-hover-bg: #000088;
+    --bs-pagination-hover-color: #fff;
+    --bs-pagination-focus-bg: #000088;
+    --bs-pagination-disabled-bg: #121212;
+    --bs-pagination-disabled-color: rgb(255 255 255 / 78%);
+    --bs-pagination-focus-color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .pagination{
+        --bs-pagination-font-size: 0.75rem;
+    }
+}

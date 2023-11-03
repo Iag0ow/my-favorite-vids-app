@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import Aside from "../../components/Aside/Aside";
 import ReactPaginate from "react-paginate";
-import "./Home.css";
+import "./Descobrir.css";
 import {
   deleteVideo,
-  getAllVideos,
+  getDiscoverVideos,
   getPlatforms,
   getVideoById,
   updateVideo,
@@ -40,7 +40,7 @@ const responsiveStyle = {
   },
 }
 
-const Home = () => {
+const Descobrir = () => {
   
   const { platformParam } = useParams();
   const {
@@ -71,8 +71,8 @@ const Home = () => {
     async function fetchData() {
       
       setLoading(true);
-      const videos = await getAllVideos(page, platformParam ? platformParam : 'reel');
-      console.log(videos);
+    //   const videos = await getDiscoverVideos(page, platformParam ? platformParam : 'reel');
+      const videos = await getDiscoverVideos();
       setAllVideos(videos);
       setLoading(false);
     }
@@ -127,7 +127,7 @@ const Home = () => {
             confirmButton: "custom-swal-confirm-button-success",
           },
         }).then(async () => {
-          const videos = await getAllVideos(page, platformParam);
+          const videos = await getDiscoverVideos(page, platformParam);
           setAllVideos(videos);
           if (updateComponentNav == true) {
             updateNavPlatform(false);
@@ -200,7 +200,7 @@ const Home = () => {
     <div className="home">
       <Aside />
       <div className="container">
-        <h2 className="mb-4">Galeria</h2>
+        <h2 className="mb-4 py-5">COMUNIDADE</h2>
         <div className="row">
           {allVideos.data &&
             allVideos.data.map(
@@ -255,11 +255,8 @@ const Home = () => {
                     <div className="d-flex justify-content-center align-items-center  mb-3">
                       <i
                         onClick={() => handleUpdate(video._id)}
-                        className="fa-solid me-5 fa-pen fa-2x"
-                      ></i>
-                      <i
-                        onClick={() => handleDelete(video._id)}
-                        className="fa-solid fa-trash fa-2x"
+                        // className="fa-regular fa-eye fa-2x"
+                        className="fa-solid fa-link fa-2x"
                       ></i>
                     </div>
                   </div>
@@ -329,4 +326,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Descobrir;

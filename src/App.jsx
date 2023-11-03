@@ -18,6 +18,8 @@ import CriarCategoria from "./pages/categoria/subcategoria/CriarCategoria";
 import EditarCategoria from "./pages/categoria/subcategoria/EditarCategoria";
 import Video from "./pages/videos/Video";
 import { NavBarInfProvider } from "./context/NavBarInfContext";
+import NotFound from "./pages/notfound/NotFound";
+import Descobrir from "./pages/descobrir/Descobrir";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -74,6 +76,11 @@ function App() {
               path="/:platformParam?"
               element={auth ? <Home /> : <Navigate to="/login" />}
             />
+            <Route
+              path="/descobrir?"
+              element={auth ? <Descobrir /> : <Navigate to="/login" />}
+            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </NavBarInfProvider>

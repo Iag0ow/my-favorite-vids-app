@@ -1,0 +1,102 @@
+body{
+    background: url('../../assets/images/background-index.png');
+    background-size: cover;
+}
+.home{
+    display: flex;
+    color: white;
+}
+.card-video{
+    /* background-color: #0000fc1f; */
+    border-radius: 20px;
+    margin-right: 20px;
+    border: 1px solid white;
+}
+.card-video p{
+    margin-top: 5px;
+}
+iframe{
+    border-radius: 20px;
+    margin-top: 20px;
+}
+.fa-link{
+    font-size: 1.5em !important;
+    border-radius: 50%;
+    box-shadow: 0px 9px 13px #000000a1;
+    cursor: pointer;
+    padding: 14px;
+    transition: 0.5s;
+}
+.fa-link{
+
+    color: white;
+    background-color: black;
+    transition: 0.6s;
+    border: 1px solid white;
+}
+
+.fa-link:hover{
+    color: black;
+    background-color: white;
+    transition: 0.6s;
+    border: 1px solid black;
+}
+
+/* Arquivo de estilo ou estilo embutido no componente React */
+.custom-swal-popup {
+    background: black;
+    color: white;
+    border: 1px solid white;
+  }
+  
+  .custom-swal-confirm-button {
+    background: #ff000096 !important;
+    color: black;
+  }
+  
+  .custom-swal-cancel-button {
+    background: #0000ff6e !important;
+    color: black;
+  }
+  
+  /* Arquivo de estilo ou estilo embutido no componente React */
+.custom-swal-popup-success {
+    background: black;
+    color: white;
+    border: 1px solid white !important;
+  }
+  
+  .custom-swal-confirm-button-success {
+    background: #0000ff6e !important;
+    color: white;
+  }
+  .btn-alterar-video{
+    background: #0000ff6e !important;
+    transition: 0.5s;
+  }
+  .btn-alterar-video:hover{
+    background: #5050fc6e !important;
+    transition: 0.5s;
+  }
+  .not-selectable{
+    user-select: none;
+  }
+  .page-link {
+    background-color: black;
+    color: #fff;
+}
+.pagination{
+    --bs-pagination-active-bg: #00006e;
+    --bs-pagination-hover-bg: #000088;
+    --bs-pagination-hover-color: #fff;
+    --bs-pagination-focus-bg: #000088;
+    --bs-pagination-disabled-bg: #121212;
+    --bs-pagination-disabled-color: rgb(255 255 255 / 78%);
+    --bs-pagination-focus-color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .pagination{
+        --bs-pagination-font-size: 0.75rem;
+    }
+}

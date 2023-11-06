@@ -9,7 +9,7 @@ import {
   getVideoById,
   updateVideo,
 } from "../../utils/config";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useNavContext } from "../../context/NavBarInfContext";
 import ReactDOMServer from "react-dom/server";
@@ -49,7 +49,8 @@ const Descobrir = () => {
     updateNavPlatform,
     updateNavBarData,
     page,
-    updatePage
+    updatePage,
+    search
   } = useContext(useNavContext);
 
   const [platform, setPlatform] = useState("");
@@ -71,13 +72,13 @@ const Descobrir = () => {
     async function fetchData() {
       
       setLoading(true);
-    //   const videos = await getDiscoverVideos(page, platformParam ? platformParam : 'reel');
-      const videos = await getDiscoverVideos();
+      const videos = await getDiscoverVideos(page, platformParam ? platformParam : 'reel',search);
+    //   const videos = await getDiscoverVideos();
       setAllVideos(videos);
       setLoading(false);
     }
     fetchData();
-  }, [updateComponentNav,page,platformParam]);
+  }, [updateComponentNav,page,platformParam,search]);
 
   useEffect(() => {
     async function fetchData() {
@@ -221,14 +222,13 @@ const Descobrir = () => {
                     <p className="text-center">{video.title}</p>
                     <hr />
                     <div className="d-flex justify-content-center align-items-center  mb-3">
-                      <i
-                        onClick={() => handleUpdate(video._id)}
-                        className="fa-solid me-5 fa-pen fa-2x"
+                    <Link to={`/perfil-publico`}>
+                        <i
+                        // onClick={() => handleUpdate(video._id)}
+                        // className="fa-regular fa-eye fa-2x"
+                        className="fa-solid fa-link fa-2x"
                       ></i>
-                      <i
-                        onClick={() => handleDelete(video._id)}
-                        className="fa-solid fa-trash fa-2x"
-                      ></i>
+                        </Link>
                     </div>
                   </div>
                 )
@@ -253,11 +253,13 @@ const Descobrir = () => {
                     <p className="text-center">{video.title}</p>
                     <hr />
                     <div className="d-flex justify-content-center align-items-center  mb-3">
-                      <i
-                        onClick={() => handleUpdate(video._id)}
+                        <Link to={`/perfil-publico`}>
+                        <i
+                        // onClick={() => handleUpdate(video._id)}
                         // className="fa-regular fa-eye fa-2x"
                         className="fa-solid fa-link fa-2x"
                       ></i>
+                        </Link>
                     </div>
                   </div>
                 )

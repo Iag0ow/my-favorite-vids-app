@@ -49,7 +49,8 @@ const Home = () => {
     updateNavPlatform,
     updateNavBarData,
     page,
-    updatePage
+    updatePage,
+    search
   } = useContext(useNavContext);
 
   const [platform, setPlatform] = useState("");
@@ -71,13 +72,12 @@ const Home = () => {
     async function fetchData() {
       
       setLoading(true);
-      const videos = await getAllVideos(page, platformParam ? platformParam : 'reel');
-      console.log(videos);
+      const videos = await getAllVideos(page, platformParam ? platformParam : 'reel',search);
       setAllVideos(videos);
       setLoading(false);
     }
     fetchData();
-  }, [updateComponentNav,page,platformParam]);
+  }, [updateComponentNav,page,platformParam,search]);
 
   useEffect(() => {
     async function fetchData() {
@@ -127,7 +127,7 @@ const Home = () => {
             confirmButton: "custom-swal-confirm-button-success",
           },
         }).then(async () => {
-          const videos = await getAllVideos(page, platformParam);
+          const videos = await getAllVideos(page, platformParam,search);
           setAllVideos(videos);
           if (updateComponentNav == true) {
             updateNavPlatform(false);

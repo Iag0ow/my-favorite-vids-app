@@ -123,7 +123,7 @@ export const createVideo = async (data) => {
 };
 
 
-export const getAllVideos = async (page,platformParam) => {
+export const getAllVideos = async (page,platformParam,searh) => {
   const token = localStorage.getItem("token");
   if (token) {
     const config = {
@@ -133,13 +133,13 @@ export const getAllVideos = async (page,platformParam) => {
         Authorization: `Bearer ${token}`,
       }
     };
-    const result = await fetch(`${API}/api-user/videos${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}`, config);
+    const result = await fetch(`${API}/api-user/videos${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}${searh ? `&title=${searh}` : ""}`, config);
     const data = await result.json();
     return data;
   }
 }
 
-export const getDiscoverVideos = async (page,platformParam) => {
+export const getDiscoverVideos = async (page,platformParam,searh) => {
   const token = localStorage.getItem("token");
   if (token) {
     const config = {
@@ -149,9 +149,9 @@ export const getDiscoverVideos = async (page,platformParam) => {
         Authorization: `Bearer ${token}`,
       }
     };
-    const result = await fetch(`${API}/api-user/discover/videos${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}`, config);
+    const result = await fetch(`${API}/api-user/discover/videos${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}${searh ? `&title=${searh}` : ""}`, config);
     const data = await result.json();
-    console.log('discover:', data);
+    console.log(data);
     return data;
   }
 }
@@ -189,6 +189,24 @@ export const getPlatforms = async () => {
       },
     };
     let result = await fetch(`${API}/api-user/videos/platforms`, config);
+    result = await result.json();
+
+    return result;
+  };
+};
+
+export const getPlatformsDiscover = async () => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    const config = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let result = await fetch(`${API}/api-user/discover/videos/platforms`, config);
     result = await result.json();
 
     return result;

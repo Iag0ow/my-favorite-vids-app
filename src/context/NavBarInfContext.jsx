@@ -7,6 +7,9 @@ const NavBarInfProvider = ({ children }) => {
   const [navBarData, setNavBarData] = useState(null);
   const [updateComponentNav, setUpdateComponentNav] = useState(false);
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const [discover, setDiscover] = useState('');
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,8 +32,16 @@ const NavBarInfProvider = ({ children }) => {
     setUpdateComponentNav(update);
   }
 
+  const updateSearch = (Search) => {
+    console.log(Search);
+    setSearch(Search);
+  }
+  const updateNavOptions = (nav) => {
+    setDiscover(nav);
+  }
+
   return (
-    <useNavContext.Provider value={{ navBarData, updateNavBarData,updateComponentNav, updateNavPlatform,page,updatePage }}>
+    <useNavContext.Provider value={{ navBarData, updateNavBarData,updateComponentNav, updateNavPlatform,page,updatePage,search,updateSearch,discover,updateNavOptions }}>
       {children}
     </useNavContext.Provider>
   );

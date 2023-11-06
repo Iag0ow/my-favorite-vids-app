@@ -21,6 +21,7 @@ import { NavBarInfProvider } from "./context/NavBarInfContext";
 import NotFound from "./pages/notfound/NotFound";
 import Descobrir from "./pages/descobrir/Descobrir";
 import PerfilPublico from "./pages/perfilPublico/PerfilPublico";
+import { AcessoProvider } from "./context/AcessoContext";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -36,6 +37,7 @@ function App() {
   return (
     <div>
       <NavBarInfProvider>
+        <AcessoProvider>
         <BrowserRouter>
           {auth && <Navbar />}
           <Routes>
@@ -88,6 +90,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+        </AcessoProvider>
       </NavBarInfProvider>
     </div>
   );

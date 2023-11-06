@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import './Login.css'
 import { Link, Navigate } from 'react-router-dom'
 import { useState } from 'react'
 import { login } from "../../utils/config";
-
+import Swal from "sweetalert2";
+import { useAcessoContext } from "../../context/AcessoContext";
 const Login = ({ handleFunc }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  
+  const {
+    acesso,
+    updateAcesso,
+  } = useContext(useAcessoContext);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const loginData = {
@@ -29,7 +34,36 @@ const Login = ({ handleFunc }) => {
         setError('');
       }, 3000);
   }
-
+useEffect(() => {
+  if(!acesso) {
+    Swal.fire({
+      title: "Verificação de Idade",
+      text: "Você tem mais de 18 anos?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sim",
+      cancelButtonText: "Não",
+      customClass: {
+        popup: "custom-swal-popup",
+        confirmButton: "custom-swal-confirm-button",
+        cancelButton: "custom-swal-cancel-button",
+      },
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire({
+          title: "Registro Não Permitido",
+          text: "Você deve ter pelo menos 18 anos para entrar ou se registrar.",
+          icon: "warning",
+          customClass: {
+            popup: "custom-swal-popup",
+            confirmButton: "custom-swal-confirm-button",
+          },
+        });
+      }
+      updateAcesso(true);
+    });
+  }
+})
   return (
     <div className="login-page">
           <h1 className="my-favorite-videos-title"><Link to="/" className='text-style-none'>My Favorite<span> Videos</span></Link></h1>

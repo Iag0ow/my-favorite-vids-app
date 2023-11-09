@@ -246,3 +246,18 @@ export const getVideoById = async (id) => {
     return result;
   }
 }
+export const getPublicVideoById = async (id) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const config = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let result = await fetch(`${API}/api-user/videos/public/${id}`, config);
+    result = await result.json();
+    return result;
+  }
+}

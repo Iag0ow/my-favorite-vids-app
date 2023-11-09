@@ -22,6 +22,7 @@ import NotFound from "./pages/notfound/NotFound";
 import Descobrir from "./pages/descobrir/Descobrir";
 import PerfilPublico from "./pages/perfilPublico/PerfilPublico";
 import { AcessoProvider } from "./context/AcessoContext";
+import VideoUnico from "./pages/videoUnico/VideoUnico";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -87,6 +88,7 @@ function App() {
               path="/perfil-publico/:id?"
               element={<PerfilPublico/>}
             />
+            <Route path="/video" element={<VideoUnico />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

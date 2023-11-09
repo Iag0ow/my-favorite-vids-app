@@ -221,7 +221,7 @@ const Descobrir = () => {
                     ></iframe>
                     <p className="text-center">{video.title}</p>
                     <hr />
-                    <div className="d-flex justify-content-center align-items-center  mb-3">
+                    <div className="d-flex justify-content-center align-items-center mb-3 flex-column">
                     <Link to={`/perfil-publico`}>
                         <i
                         // onClick={() => handleUpdate(video._id)}
@@ -229,6 +229,7 @@ const Descobrir = () => {
                         className="fa-solid fa-link fa-2x"
                       ></i>
                         </Link>
+                        <Link to={`/perfil-publico/${video.user_id}`}><button className="btn btn-primary mt-3"> Ver perfil</button></Link>
                     </div>
                   </div>
                 )
@@ -252,7 +253,7 @@ const Descobrir = () => {
                     ></iframe>
                     <p className="text-center">{video.title}</p>
                     <hr />
-                    <div className="d-flex justify-content-center align-items-center  mb-3">
+                    <div className="d-flex justify-content-center align-items-center mb-3 flex-column">
                         <Link to={`/perfil-publico`}>
                         <i
                         // onClick={() => handleUpdate(video._id)}
@@ -260,6 +261,7 @@ const Descobrir = () => {
                         className="fa-solid fa-link fa-2x"
                       ></i>
                         </Link>
+                        <Link to={`/perfil-publico/${video.user_id}`}><button className="btn btn-primary mt-3"> Ver perfil</button></Link>
                     </div>
                   </div>
                 )

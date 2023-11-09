@@ -1,0 +1,51 @@
+.editar-video{
+    max-width: 700px;
+    margin-top: 2%;
+}
+
+.editar-video button.btn-entrar{
+    font-size: 1.3rem;
+}
+.editar-video select{
+    font-size: 1.3rem;
+}
+
+.editar-video label {
+    font-size: 1.3rem !important;
+}
+.text-red{
+    color: #FF0321 !important;
+    font-size: 1.3rem !important;
+    cursor: pointer !important;
+}
+
+.text-red:hover{
+    color: #FF0321;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+.btn-excluir{
+    background-color: #FF0321 !important;
+    transition: 0.5s;
+}
+.btn-excluir:hover{
+    background-color: #ff0320b0 !important;
+    transition: 0.5s;
+}
+.videos-page-box{
+    background-color: #000000;
+    color: white;
+}
+.videos-page-box:focus {
+    background-color: #000000;
+    color: white;
+}
+.videos-page-box::placeholder{
+    color: rgba(255, 255, 255, 0.664);
+}
+@media screen and (max-width: 768px){
+    .perfil{
+        display: block;
+    }
+}
+    

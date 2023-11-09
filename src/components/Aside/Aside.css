@@ -52,6 +52,10 @@ aside ul li a:hover #videos-icon{
     fill: white;
     fill-opacity: 1;
 }
+aside ul li a:hover #categoria-icon{
+    fill: white;
+    fill-opacity: 1 !important;
+}
 aside ul li a:hover #config1,aside ul li a:hover #config2{
     stroke: white;
     stroke-opacity:1;

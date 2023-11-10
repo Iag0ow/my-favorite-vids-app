@@ -85,7 +85,7 @@ function App() {
               element={auth ? <Descobrir /> : <Navigate to="/login" />}
             />
             <Route
-              path="/perfil-publico/:id?"
+              path="/perfil-publico/:platformParam?/:id?"
               element={<PerfilPublico/>}
             />
             <Route path="/video" element={<VideoUnico />} />

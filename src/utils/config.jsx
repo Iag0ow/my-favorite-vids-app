@@ -246,7 +246,7 @@ export const getVideoById = async (id) => {
     return result;
   }
 }
-export const getPublicVideoById = async (id) => {
+export const getPublicVideoById = async (user_id,page,platformParam,searh) => {
   const token = localStorage.getItem("token");
   if (token) {
     const config = {
@@ -256,7 +256,8 @@ export const getPublicVideoById = async (id) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    let result = await fetch(`${API}/api-user/videos/public/${id}`, config);
+    let result = await fetch(`${API}/discover/videos/users/${user_id}${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}${searh ? `&title=${searh}` : ""}`, config);
+
     result = await result.json();
     return result;
   }

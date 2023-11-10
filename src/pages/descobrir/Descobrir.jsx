@@ -229,7 +229,7 @@ const Descobrir = () => {
                         className="fa-solid fa-link fa-2x"
                       ></i>
                         </Link>
-                        <Link to={`/perfil-publico/${video.user_id}`}><button className="btn btn-primary mt-3"> Ver perfil</button></Link>
+                        <Link to={`/perfil-publico/${video.platform}/${video.user_id}`}><button className="btn btn-primary mt-3"> Ver perfil</button></Link>
                     </div>
                   </div>
                 )
@@ -261,7 +261,7 @@ const Descobrir = () => {
                         className="fa-solid fa-link fa-2x"
                       ></i>
                         </Link>
-                        <Link to={`/perfil-publico/${video.user_id}`}><button className="btn btn-primary mt-3"> Ver perfil</button></Link>
+                        <Link to={`/perfil-publico/${video.platform}/${video.user_id}`}><button className="btn btn-primary mt-3"> Ver perfil</button></Link>
                     </div>
                   </div>
                 )

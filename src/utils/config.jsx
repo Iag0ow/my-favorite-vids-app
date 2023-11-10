@@ -13,14 +13,14 @@ export const login = async (loginForm) => {
 
   const auth = await customFetchNoAuth(`${API}/session/login`, config);
 
-  if (auth.error) {
+  if (auth?.error) {
     return {
       auth: false,
       message: auth.error.message,
     };
   } else {
-    localStorage.setItem("user_id", auth.id);
-    localStorage.setItem("token", auth.access_token);
+    localStorage.setItem("user_id", auth?.id);
+    localStorage.setItem("token", auth?.access_token);
 
     return true;
   }
@@ -58,7 +58,6 @@ export const getUser = async () => {
 export const updateUser = async (user) => {
   const config = {
     method: "PATCH",
-
     body: JSON.stringify(user),
   };
 
@@ -68,7 +67,6 @@ export const updateUser = async (user) => {
 export const deleteUser = async (user) => {
     const config = {
       method: "DELETE",
-
       body: JSON.stringify(user),
     };
 
@@ -81,7 +79,6 @@ export const deleteUser = async (user) => {
 export const createVideo = async (data) => {
     const config = {
       method: "POST",
-
       body: JSON.stringify(data),
     };
 
@@ -147,7 +144,6 @@ export const getPlatformsDiscover = async () => {
 export const updateVideo = async (id, body) => {
     const config = {
       method: "PATCH",
-
       body: JSON.stringify(body),
     };
 

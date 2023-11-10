@@ -2,13 +2,14 @@ import { logOut } from "./config";
 
 export const customFetch = async (url, options) => {
   const token = localStorage.getItem("token");
-  if (!token) return;
+  if (!token) return redirectToLogin();
+
 
   try {
-	const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-    }
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
 
     const response = await fetch(url, { ...options, headers });
 
@@ -21,17 +22,12 @@ export const customFetch = async (url, options) => {
 };
 
 export const customFetchNoAuth = async (url, options) => {
-  const token = localStorage.getItem("token");
-  if (!token) return;
-
   try {
     const headers = {
       "Content-Type": "application/json",
-    }
+    };
 
     const response = await fetch(url, { ...options, headers });
-
-    if (response.status === 401) return redirectToLogin();
 
     return response.json();
   } catch (error) {

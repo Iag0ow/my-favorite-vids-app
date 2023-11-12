@@ -1,27 +1,28 @@
-const API = "https://my-favorite-vids-api.vercel.app";
 import { useEffect, useState } from "react";
+import { customFetch, customFetchNoAuth } from "./custom-fetch";
+
+const API = "https://my-favorite-vids-api.vercel.app";
+
 export const login = async (loginForm) => {
   const bodyForm = JSON.stringify(loginForm);
+
   const config = {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: bodyForm,
   };
-    const response = await fetch(`${API}/session/login`, config);
-    const auth = await response.json();
-  if (auth.hasOwnProperty("error")) {
-    let authorization = {
+
+  const auth = await customFetchNoAuth(`${API}/session/login`, config);
+
+  if (auth?.error) {
+    return {
       auth: false,
       message: auth.error.message,
     };
-    return authorization;
   } else {
-    let authorization = true;
-    localStorage.setItem("user_id", auth.id);
-    localStorage.setItem("token", auth.access_token);
-    return authorization;
+    localStorage.setItem("user_id", auth?.id);
+    localStorage.setItem("token", auth?.access_token);
+
+    return true;
   }
 };
 export const getAuth = () => {
@@ -41,223 +42,126 @@ export const getAuth = () => {
 };
 
 export const logOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_id");
+  localStorage.removeItem("token");
+  localStorage.removeItem("user_id");
   return true;
 };
 
 export const getUser = async () => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    const config = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      }
-    };
-    const result = await fetch(`${API}/api-user/profile`, config);
-    const data = await result.json();
-    return data;
-  }
-}
+  const config = {
+    method: "GET",
+  };
+
+  return customFetch(`${API}/api-user/profile`, config);
+};
 
 export const updateUser = async (user) => {
-  const token = localStorage.getItem("token");
+  const config = {
+    method: "PATCH",
+    body: JSON.stringify(user),
+  };
 
-  if (token) {
-    const config = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(user),
-    };
-    let result = await fetch(`${API}/api-user/profile`, config);
-    result = await result.json();
-    return result;
-  }
+  return customFetch(`${API}/api-user/profile`, config);
 };
 
 export const deleteUser = async (user) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
     const config = {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
       body: JSON.stringify(user),
     };
-    let result = await fetch(`${API}/api-user/profile`, config);
-    if(result.status === 204){
-      return true;
-    }
-    result = await result.json();
+
+    let result = await customFetch(`${API}/api-user/profile`, config);
+    if (result.status === 204) return true;
+
     return result;
-  };
 };
 
 export const createVideo = async (data) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
     const config = {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
       body: JSON.stringify(data),
     };
-    let result = await fetch(`${API}/api-user/videos`, config);
-    if(result.ok){
-      return true;
-    }
-    result = await result.json();
+
+    let result = await customFetch(`${API}/api-user/videos`, config);
+    if (result.ok) return true;
+
     return result;
-  };
 };
 
-
-export const getAllVideos = async (page,platformParam,searh) => {
-  const token = localStorage.getItem("token");
-  if (token) {
+export const getAllVideos = async (page, platformParam, searh) => {
     const config = {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      }
     };
-    const result = await fetch(`${API}/api-user/videos${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}${searh ? `&title=${searh}` : ""}`, config);
-    const data = await result.json();
-    return data;
-  }
-}
 
-export const getDiscoverVideos = async (page,platformParam,searh) => {
-  const token = localStorage.getItem("token");
-  if (token) {
+    return customFetch(
+      `${API}/api-user/videos${page ? `?page=${page}` : ""}${
+        platformParam ? `&platform=${platformParam}` : ""
+      }${searh ? `&title=${searh}` : ""}`,
+      config
+    );
+};
+
+export const getDiscoverVideos = async (page, platformParam, searh) => {
     const config = {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      }
     };
-    const result = await fetch(`${API}/api-user/discover/videos${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}${searh ? `&title=${searh}` : ""}`, config);
-    const data = await result.json();
-    console.log(data);
-    return data;
-  }
-}
 
+    return customFetch(
+      `${API}/api-user/discover/videos${page ? `?page=${page}` : ""}${
+        platformParam ? `&platform=${platformParam}` : ""
+      }${searh ? `&title=${searh}` : ""}`,
+      config
+    );
+};
 
 export const deleteVideo = async (videoId) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
     const config = {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
     };
-    let result = await fetch(`${API}/api-user/videos/${videoId}`, config);
-    if(result.ok){
-      return true;
-    }
-    result = await result.json();
+
+    let result = await customFetch(`${API}/api-user/videos/${videoId}`, config);
+    if (result.ok) return true;
+
     return result;
-  };
 };
 
 export const getPlatforms = async () => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
     const config = {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
     };
-    let result = await fetch(`${API}/api-user/videos/platforms`, config);
-    result = await result.json();
 
-    return result;
-  };
+    return customFetch(`${API}/api-user/videos/platforms`, config);
 };
 
 export const getPlatformsDiscover = async () => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
     const config = {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
     };
-    let result = await fetch(`${API}/api-user/discover/videos/platforms`, config);
-    result = await result.json();
 
-    return result;
-  };
+    return customFetch(`${API}/api-user/discover/videos/platforms`, config);
 };
 
-export const updateVideo = async (id,body) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
+export const updateVideo = async (id, body) => {
     const config = {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
       body: JSON.stringify(body),
     };
-    let result = await fetch(`${API}/api-user/videos/${id}`, config);
-    result = await result.json();
-    return result;
-  }
+
+    return customFetch(`${API}/api-user/videos/${id}`, config);
 };
 
 export const getVideoById = async (id) => {
-  const token = localStorage.getItem("token");
-  if (token) {
     const config = {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
     };
-    let result = await fetch(`${API}/api-user/videos/${id}`, config);
-    result = await result.json();
-    return result;
-  }
-}
+
+    return customFetch(`${API}/api-user/videos/${id}`, config);
+};
+
 export const getPublicVideoById = async (id) => {
-  const token = localStorage.getItem("token");
-  if (token) {
     const config = {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
     };
-    let result = await fetch(`${API}/api-user/videos/public/${id}`, config);
-    result = await result.json();
-    return result;
-  }
-}
+
+    return customFetch(`${API}/api-user/videos/public/${id}`, config);
+};

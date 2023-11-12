@@ -13,6 +13,8 @@ const NavBarInfProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+        if (!localStorage.getItem("token")) return;
+
         const dataPlatform = await getPlatforms();
         if (dataPlatform && dataPlatform.length > 0) {
           updateNavBarData(dataPlatform[0]);

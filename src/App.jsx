@@ -88,7 +88,8 @@ function App() {
               path="/perfil-publico/:platformParam?/:id?"
               element={<PerfilPublico/>}
             />
-            <Route path="/video" element={<VideoUnico />} />
+            
+            <Route path="/video/:videoId" element={<VideoUnico />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -8,10 +8,13 @@ import {
   getPlatforms,
   getVideoById,
   updateVideo,
+  getUserData,
 } from "../../utils/config";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useNavContext } from "../../context/NavBarInfContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Box from '@mui/material/Box';
 
 const style = {
@@ -44,6 +47,7 @@ const PerfilPublico = () => {
     page,
     updatePage,
     discover,
+    updateNavPlatform,
     updateNavOptions,
     search
   } = useContext(useNavContext);
@@ -51,19 +55,25 @@ const PerfilPublico = () => {
   const [platform, setPlatform] = useState("");
   const [allVideos, setAllVideos] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [userData, setUserData] = useState("");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     updateNavOptions("perfil-publico",id);
   })
 
+  useEffect(() => {
+    updatePage(1);
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
       
       setLoading(true);
       const videos = await getPublicVideoById(id,page, platformParam ? platformParam : 'reel',search);
+      const userData = await getUserData(id);
     //   const videos = await getDiscoverVideos();
+      setUserData(userData);
       setAllVideos(videos);
       setLoading(false);
     }
@@ -84,6 +94,27 @@ const PerfilPublico = () => {
   const handlePageClick = (e) => {
     updatePage(e.selected + 1);
   };
+
+  const handleCopy = async (e, string) => {
+    e.preventDefault();
+    const urlLink = window.location.origin + string;
+    await navigator.clipboard.writeText(urlLink);
+    toast.success('🔗 Copiado!', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className="home">
       <Aside />
@@ -115,12 +146,11 @@ const PerfilPublico = () => {
                     <p className="text-center">{video.title}</p>
                     <hr />
                     <div className="d-flex justify-content-center align-items-center mb-3 flex-column">
-                    <Link to={`/perfil-publico`}>
+             <Link onClick={(e) => handleCopy(e, `/video/${video._id}`)}>
                         <i
                         className="fa-solid fa-link fa-2x"
                       ></i>
                         </Link>
-                        <Link to={`/perfil-publico/${video.platform}/${video.user_id}`}><button className="btn btn-primary mt-3"> Ver perfil</button></Link>
                     </div>
                   </div>
                 )
@@ -145,17 +175,28 @@ const PerfilPublico = () => {
                     <p className="text-center">{video.title}</p>
                     <hr />
                     <div className="d-flex justify-content-center align-items-center mb-3 flex-column">
-                        <Link to={`/perfil-publico`}>
+                    <Link onClick={(e) => handleCopy(e, `/video/${video._id}`)}>
                         <i
                         className="fa-solid fa-link fa-2x"
                       ></i>
                         </Link>
-                        <Link to={`/perfil-publico/${video.platform}/${video.user_id}`}><button className="btn btn-primary mt-3"> Ver perfil</button></Link>
                     </div>
                   </div>
                 )
             )}
         </div>
+        <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        />
         <div>
             <ReactPaginate
               breakLabel={"..."}

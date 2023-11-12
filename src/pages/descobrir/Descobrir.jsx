@@ -3,21 +3,17 @@ import Aside from "../../components/Aside/Aside";
 import ReactPaginate from "react-paginate";
 import "./Descobrir.css";
 import {
-  deleteVideo,
   getDiscoverVideos,
   getPlatforms,
-  getVideoById,
   updateVideo,
 } from "../../utils/config";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useNavContext } from "../../context/NavBarInfContext";
-import ReactDOMServer from "react-dom/server";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const style = {
   position: 'absolute',
@@ -48,6 +44,7 @@ const Descobrir = () => {
     updateComponentNav,
     updateNavPlatform,
     updateNavBarData,
+    updateNavOptions,
     page,
     updatePage,
     search
@@ -91,66 +88,20 @@ const Descobrir = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
-    setLoading(true);
-    Swal.fire({
-      title: "Deseja realmente excluir o vídeo?",
-      text: "Esta ação não pode ser desfeita!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Excluir",
-      cancelButtonText: "Cancelar",
-      customClass: {
-        popup: "custom-swal-popup",
-        confirmButton: "custom-swal-confirm-button",
-        cancelButton: "custom-swal-cancel-button",
-      },
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const data = await deleteVideo(id);
-
-        if (data.hasOwnProperty("error")) {
-          setLoading(false);
-          setMessageFail(true);
-
-          setTimeout(() => {
-            setMessageFail(false);
-          }, 3000);
-          return;
-        }
-
-        Swal.fire({
-          title: "Excluído!",
-          text: "O vídeo foi excluído com sucesso.",
-          icon: "success",
-          customClass: {
-            popup: "custom-swal-popup-success",
-            confirmButton: "custom-swal-confirm-button-success",
-          },
-        }).then(async () => {
-          const videos = await getDiscoverVideos(page, platformParam);
-          setAllVideos(videos);
-          if (updateComponentNav == true) {
-            updateNavPlatform(false);
-          } else {
-            updateNavPlatform(true);
-          }
-        });
-      }
-    });
-    setLoading(false);
-  };
-
-
-  const handleUpdate = async (id) => {
-    const currentVideo = await getVideoById(id);
-    setCurrentId(id);
-    setFormData({
-      title: currentVideo.title,
-      description: currentVideo.description,
-      privy: currentVideo.privy,
-    });
-    setOpen(true);
+  const handleCopy = async (e, string) => {
+    e.preventDefault();
+    const urlLink = window.location.origin + string;
+    await navigator.clipboard.writeText(urlLink);
+    toast.success('🔗 Copiado!', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
   };
   const handleClose = () => {
     setOpen(false);
@@ -222,10 +173,8 @@ const Descobrir = () => {
                     <p className="text-center">{video.title}</p>
                     <hr />
                     <div className="d-flex justify-content-center align-items-center mb-3 flex-column">
-                    <Link to={`/perfil-publico`}>
+                    <Link onClick={(e) => handleCopy(e, `/video/${video._id}`)}>
                         <i
-                        // onClick={() => handleUpdate(video._id)}
-                        // className="fa-regular fa-eye fa-2x"
                         className="fa-solid fa-link fa-2x"
                       ></i>
                         </Link>
@@ -254,10 +203,8 @@ const Descobrir = () => {
                     <p className="text-center">{video.title}</p>
                     <hr />
                     <div className="d-flex justify-content-center align-items-center mb-3 flex-column">
-                        <Link to={`/perfil-publico`}>
+                    <Link onClick={(e) => handleCopy(e, `/video/${video._id}`)}>
                         <i
-                        // onClick={() => handleUpdate(video._id)}
-                        // className="fa-regular fa-eye fa-2x"
                         className="fa-solid fa-link fa-2x"
                       ></i>
                         </Link>
@@ -325,6 +272,19 @@ const Descobrir = () => {
             <button className={`btn btn-alterar-video mt-4 bg-danger text-white w-100 ${loading ? 'disabled-link' : ''}`} onClick={handleSave}>{loading ? 'Salvando...' : 'Salvar' }</button>
           </Box>
         </Modal>
+
+        <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        />
       </div>
     </div>
   );

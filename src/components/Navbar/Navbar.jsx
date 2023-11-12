@@ -3,13 +3,15 @@ import hamburger from "../../assets/images/icon/hamburguer.png";
 import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { getPlatforms, getPlatformsDiscover } from "../../utils/config";
+import { getPlatforms, getPlatformsDiscover, getPlatformsPublic } from "../../utils/config";
 import { useNavContext } from "../../context/NavBarInfContext";
 const Navbar = () => {
-  const { navBarData, updateNavBarData, updateComponentNav,updateSearch,discover,id } =
+  const { navBarData,updateNavOptions, updateNavBarData, updateComponentNav,updateSearch,discover,id } =
     useContext(useNavContext);
   const [platforms, setPlatforms] = useState([]);
   const [platformsDiscover, setPlatformsDiscover] = useState([]);
+  const [platformsPublic, setPlatformsPublic] = useState([]);
+
   const [plataformaAtiva, setPlataformaAtiva] = useState(null);
   // const [discover, setDiscover] = useState("");
   const handlePlataformaClick = (plataforma) => {
@@ -34,6 +36,16 @@ const Navbar = () => {
     fetchData();
   }, [updateComponentNav]);
 
+  useEffect(() => {
+    if(discover == "perfil-publico"){
+      const fetchData = async () => {
+        const dataPlatform = await getPlatformsPublic(id);
+        setPlatformsPublic(dataPlatform);
+      };
+  
+      fetchData();
+    }
+  },[updateComponentNav,updateNavOptions])
 
   // useEffect(() => {
   //   const currentUrl = window.location.href;
@@ -53,8 +65,8 @@ const Navbar = () => {
         </Link>
       </h5>
       <ul>
-        {platformsDiscover &&
-          platformsDiscover.map((platform) => (
+        {platformsPublic &&
+          platformsPublic.map((platform) => (
             <li key={platform}>
               <Link
                 to={`/perfil-publico/${platform}/${id}`}

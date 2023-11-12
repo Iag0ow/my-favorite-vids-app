@@ -164,7 +164,15 @@ export const getPublicVideoById = async (user_id,page,platformParam,searh) => {
       method: "GET",
     };
 
-    return customFetch(`${API}/discover/videos/users/${user_id}${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}${searh ? `&title=${searh}` : ""}`, config);
+    return customFetch(`${API}/discover/users/videos/${user_id}${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}${searh ? `&title=${searh}` : ""}`, config);
+  }
+
+  export const getUserData = async (user_id) => {
+    const config = {
+      method: "GET",
+    };
+
+    return customFetch(`${API}/discover/users/${user_id}`, config);
   }
 
 export const getUserById = async (username) => {
@@ -174,3 +182,16 @@ export const getUserById = async (username) => {
     
     return customFetch(`${API}/discover/users/${username}`, config);
 }
+
+export const getUniqueVideoById = async (id) => {
+    const config = {
+      method: "GET",
+    };
+    return customFetchNoAuth(`${API}/discover/videos/${id}`, config);
+}
+export const getPlatformsPublic = async (user_id) => {
+  const config = {
+    method: "GET",
+  };
+  return customFetch(`${API}/discover/users/platforms/${user_id}`, config);
+};

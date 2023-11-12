@@ -155,13 +155,29 @@ export const getVideoById = async (id) => {
       method: "GET",
     };
 
+
     return customFetch(`${API}/api-user/videos/${id}`, config);
 };
 
 export const getPublicVideoById = async (id) => {
+
+    let result = await fetch(`${API}/api-user/videos/${id}`, config);
+    result = await result.json();
+    return result;
+  }
+}
+export const getPublicVideoById = async (user_id,page,platformParam,searh) => {
+  const token = localStorage.getItem("token");
+  if (token) {
     const config = {
       method: "GET",
     };
 
     return customFetch(`${API}/api-user/videos/public/${id}`, config);
 };
+    let result = await fetch(`${API}/discover/videos/users/${user_id}${page ? `?page=${page}` : ""}${platformParam ? `&platform=${platformParam}` : ""}${searh ? `&title=${searh}` : ""}`, config);
+
+    result = await result.json();
+    return result;
+  }
+}

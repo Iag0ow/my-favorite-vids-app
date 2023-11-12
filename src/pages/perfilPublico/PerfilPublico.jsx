@@ -4,7 +4,7 @@ import Aside from "../../components/Aside/Aside";
 import ReactPaginate from "react-paginate";
 import {
   deleteVideo,
-  getDiscoverVideos,
+  getPublicVideoById,
   getPlatforms,
   getVideoById,
   updateVideo,
@@ -62,7 +62,7 @@ const PerfilPublico = () => {
     async function fetchData() {
       
       setLoading(true);
-      const videos = await getDiscoverVideos(page, platformParam ? platformParam : 'reel',search);
+      const videos = await getPublicVideoById(id,page, platformParam ? platformParam : 'reel',search);
     //   const videos = await getDiscoverVideos();
       setAllVideos(videos);
       setLoading(false);

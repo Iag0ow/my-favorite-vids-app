@@ -175,12 +175,12 @@ export const getPublicVideoById = async (user_id,page,platformParam,searh) => {
     return customFetch(`${API}/discover/users/${user_id}`, config);
   }
 
-export const getUserById = async (username) => {
+export const getUserById = async (userId) => {
     const config = {
       method: "GET",
     };
     
-    return customFetch(`${API}/discover/users/${username}`, config);
+    return customFetch(`${API}/discover/users/${userId}`, config);
 }
 
 export const getUniqueVideoById = async (id) => {

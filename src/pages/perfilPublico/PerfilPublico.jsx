@@ -3,11 +3,9 @@ import React, { useEffect, useState, useContext } from "react";
 import Aside from "../../components/Aside/Aside";
 import ReactPaginate from "react-paginate";
 import {
-  deleteVideo,
   getPublicVideoById,
   getPlatforms,
-  getVideoById,
-  updateVideo,
+  getUserById,
   getUserData,
 } from "../../utils/config";
 import { Link, useParams } from "react-router-dom";
@@ -59,8 +57,12 @@ const PerfilPublico = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    updateNavOptions("perfil-publico",id);
-  })
+    const fetchData = async () => {
+      updateNavOptions("perfil-publico",id);
+      setUserData(await getUserById(id));
+    }
+    fetchData();
+  },[])
 
   useEffect(() => {
     updatePage(1);
@@ -121,9 +123,10 @@ const PerfilPublico = () => {
       <div className="container">
         <div className="col-md-5 box-perfil-discover d-flex justify-content-between p-5 align-items-center mb-5">
           <div className="me-4">
-            <h3 className="mb-4 ">Pedro Henrique</h3>
-            <p>Meus vídeos do youtube são os mais legais</p>
+            <h3 className="mb-4 ">{userData.username}</h3>
+            <p>{userData.bio}</p>
           </div>
+            {/* <img className="img-perfil" src={userData.profile_picture} alt="Profile" /> */}
             <img className="img-perfil" src="https://picsum.photos/200" alt="" />
         </div>
         <div className="row">

@@ -3,7 +3,7 @@ import hamburger from "../../assets/images/icon/hamburguer.png";
 import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { getPlatforms, getPlatformsDiscover, getPlatformsPublic } from "../../utils/config";
+import { getPlatforms, getPlatformsDiscover, getPlatformsPublic,logOut } from "../../utils/config";
 import { useNavContext } from "../../context/NavBarInfContext";
 const Navbar = () => {
   const { navBarData,updateNavOptions, updateNavBarData, updateComponentNav,updateSearch,discover,id } =
@@ -47,11 +47,15 @@ const Navbar = () => {
     }
   },[updateComponentNav,updateNavOptions])
 
-  // useEffect(() => {
-  //   const currentUrl = window.location.href;
-  //   const url = currentUrl.includes("descobrir") ? "descobrir" : "";
-  //   setDiscover(url);    
-  // },[plataformaAtiva, updateComponentNav, updateNavBarData]);
+  const closeHamburguer = ()=> {
+    document.getElementById("btn-close-hamburguer").click();
+  }
+  const handleLogout = () => {
+    const result = logOut();
+    if(result) {
+      window.location.reload();
+    }
+  }
   return (
     <>
     {discover == "perfil-publico" ? (  <>
@@ -102,22 +106,29 @@ const Navbar = () => {
       >
         <div className="offcanvas-header">
           <h5 className="my-favorite-videos-title">
-            My Favorite<span> Videos</span>
+          <Link
+          className="navbar-brand"
+          onClick={() => { closeHamburguer(); }}
+          to={`/${navBarData ? navBarData : ""}`}
+        >
+          My Favorite<span> Videos</span>
+        </Link>
           </h5>
           <button
             type="button"
             className="btn-close btn-close-white"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
+            id="btn-close-hamburguer"
           ></button>
         </div>
         <div className="offcanvas-body">
           <ul className="navbar-nav align-items-start flex-grow-1 pe-3">
             <h1>Menu</h1>
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <Link onClick={() => {closeHamburguer(); updateNavOptions("")}} to={`/${navBarData ? navBarData : ""}`} className="nav-link active" aria-current="page">
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
               <a
@@ -127,52 +138,41 @@ const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Categorias
+                Plataformas
               </a>
               <ul className="dropdown-menu dropdown-menu-dark">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Geral
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    YouTube
-                  </a>
-                </li>
-                {/* <li>
-                  <hr className="dropdown-divider" />
-                </li> */}
-                <li>
-                  <a className="dropdown-item" href="#">
-                    TikTok
-                  </a>
-                </li>
+              {platformsPublic &&
+          platformsPublic.map((platform) => (
+            <li key={platform}>
+              <Link
+                onClick={() => {closeHamburguer(); handlePlataformaClick(platform);}}
+                to={`/perfil-publico/${platform}/${id}`}
+                className={`dropdown-item`}
+              >
+                {platform}
+              </Link>
+            </li>
+          ))}
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Comunidade
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink onClick={() => { closeHamburguer(); updateNavOptions('descobrir'); }} to={'/descobrir'} className="nav-link">
                 Descobrir
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link onClick={() => { closeHamburguer(); }} to="/videos" className="nav-link">
                 Videos
-              </a>
+              </Link>
             </li>
             <h1>Geral</h1>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link onClick={() => { closeHamburguer(); }} to="/perfil" className="nav-link">
                 Perfil
-              </a>
+              </Link>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+            <li onClick={handleLogout} className="nav-item">
+              <a href="#" className="nav-link">
                 Sair
               </a>
             </li>
@@ -240,22 +240,29 @@ discover !== "descobrir" ? (
       >
         <div className="offcanvas-header">
           <h5 className="my-favorite-videos-title">
-            My Favorite<span> Videos</span>
+          <Link
+          className="navbar-brand"
+          onClick={() => { closeHamburguer(); }}
+          to={`/${navBarData ? navBarData : ""}`}
+        >
+          My Favorite<span> Videos</span>
+        </Link>
           </h5>
           <button
             type="button"
             className="btn-close btn-close-white"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
+            id="btn-close-hamburguer"
           ></button>
         </div>
         <div className="offcanvas-body">
           <ul className="navbar-nav align-items-start flex-grow-1 pe-3">
             <h1>Menu</h1>
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <Link onClick={() => {closeHamburguer(); updateNavOptions("")}} to={`/${navBarData ? navBarData : ""}`} className="nav-link active" aria-current="page">
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
               <a
@@ -265,52 +272,41 @@ discover !== "descobrir" ? (
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Categorias
+                Plataformas
               </a>
               <ul className="dropdown-menu dropdown-menu-dark">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Geral
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    YouTube
-                  </a>
-                </li>
-                {/* <li>
-                  <hr className="dropdown-divider" />
-                </li> */}
-                <li>
-                  <a className="dropdown-item" href="#">
-                    TikTok
-                  </a>
-                </li>
+              {platformsDiscover &&
+                platformsDiscover.map((platform) => (
+                  <li key={platform}>
+                    <Link
+                      to={`/${platform}`}
+                      className={`dropdown-item`}
+                      onClick={() => {closeHamburguer(); handlePlataformaClick(platform)}}
+                    >
+                      {platform}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Comunidade
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink onClick={() => { closeHamburguer(); updateNavOptions('descobrir'); }} to={'/descobrir'} className="nav-link">
                 Descobrir
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link onClick={() => { closeHamburguer(); }} to="/videos" className="nav-link">
                 Videos
-              </a>
+              </Link>
             </li>
             <h1>Geral</h1>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link onClick={() => { closeHamburguer(); }} to="/perfil" className="nav-link">
                 Perfil
-              </a>
+              </Link>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+            <li onClick={handleLogout} className="nav-item">
+              <a href="#" className="nav-link">
                 Sair
               </a>
             </li>
@@ -377,22 +373,32 @@ discover !== "descobrir" ? (
       >
         <div className="offcanvas-header">
           <h5 className="my-favorite-videos-title">
-            My Favorite<span> Videos</span>
+            <Link className="navbar-brand"
+              onClick={() => { closeHamburguer(); }}
+              to={`/${navBarData ? navBarData : ""}`}>
+              My Favorite<span> Videos</span>
+            </Link>
           </h5>
           <button
             type="button"
             className="btn-close btn-close-white"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
+            id="btn-close-hamburguer"
           ></button>
         </div>
         <div className="offcanvas-body">
           <ul className="navbar-nav align-items-start flex-grow-1 pe-3">
             <h1>Menu</h1>
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                onClick={() => {closeHamburguer(); updateNavOptions("")}} 
+                to={`/${navBarData ? navBarData : ""}`}
+              >
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
               <a
@@ -405,49 +411,38 @@ discover !== "descobrir" ? (
                 Categorias
               </a>
               <ul className="dropdown-menu dropdown-menu-dark">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Geral
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    YouTube
-                  </a>
-                </li>
-                {/* <li>
-                  <hr className="dropdown-divider" />
-                </li> */}
-                <li>
-                  <a className="dropdown-item" href="#">
-                    TikTok
-                  </a>
-                </li>
+              {platforms &&
+                platforms.map((platform) => (
+            <li key={platform}>
+              <Link
+                to={`/descobrir/${platform}`}
+                className={`dropdown-item`}
+                onClick={() => {handlePlataformaClick(platform); closeHamburguer()}}
+              >
+                {platform}
+              </Link>
+            </li>
+          ))}
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Comunidade
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink onClick={() => { closeHamburguer(); updateNavOptions('descobrir'); }} to={'/descobrir'} className="nav-link">
                 Descobrir
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link onClick={() => { closeHamburguer(); }} to="/videos" className="nav-link">
                 Videos
-              </a>
+              </Link>
             </li>
             <h1>Geral</h1>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link onClick={() => { closeHamburguer(); }} to="/perfil" className="nav-link">
                 Perfil
-              </a>
+              </Link>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+            <li onClick={handleLogout} className="nav-item">
+              <a href="#" className="nav-link">
                 Sair
               </a>
             </li>

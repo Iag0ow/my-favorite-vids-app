@@ -36,7 +36,7 @@ const VideoUnico = () => {
             </div>
           </div>
           <div className="col-md-6 col-lg-6">
-            <h2 className="mb-4 text-center mt-lg-5">Video Público</h2>
+            <h2 className="mb-4 text-center mt-lg-5">Video</h2>
             <div className="d-flex justify-content-center mt-5 mb-3">
               <div
                 className="col-md-12 col-lg-6 card-video word-break me-0"

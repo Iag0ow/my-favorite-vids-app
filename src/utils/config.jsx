@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { customFetch, customFetchNoAuth } from "./custom-fetch";
+import { customFetch, customFetchNoAuth, fetchImg } from "./custom-fetch";
 
 const API = "https://my-favorite-vids-api.vercel.app";
 
@@ -195,3 +195,48 @@ export const getPlatformsPublic = async (user_id) => {
   };
   return customFetch(`${API}/discover/users/platforms/${user_id}`, config);
 };
+
+export const getProfilePicture = async () => {
+  const config = {
+    method: "GET",
+  };
+  return await fetchImg(`${API}/api-user/profile/picture`, config);
+}
+
+export const getAllProfilePictures = async () => {
+  let dataArray = [];
+
+  const config = {
+    method: "GET",
+  };
+  const data = await customFetch(`${API}/api-user/profile-pictures`, config);
+  try {
+
+    const imagePromises = data.map((item) => {
+      const response = fetchImg(`${API}/api-user/profile-pictures/${item}`,config);
+      return {itemName: item, response};
+    });
+
+    dataArray = await Promise.all(imagePromises.map(async (item) => {
+      const resolvedResponse = await item.response;
+      return { itemName: item.itemName, blob: resolvedResponse };
+    }));
+  
+  } catch (error) {
+    console.error('Erro ao obter as imagens do perfil:', error);
+  }
+  return dataArray;
+}
+export const updateProfilePicture = async (data) => {
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "PATCH",
+    body: JSON.stringify(data),
+  };
+  
+  return fetch(`${API}/api-user/profile/picture`, config);
+}

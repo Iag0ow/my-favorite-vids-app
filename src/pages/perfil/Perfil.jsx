@@ -3,7 +3,7 @@ import "./Perfil.css";
 import Aside from "../../components/Aside/Aside";
 import trash from "../../assets/images/icon/material_symbols_delete_outline.png";
 import { Link } from "react-router-dom";
-import { getUser,updateUser,deleteUser,logOut} from "../../utils/config";
+import { getUser,updateUser,deleteUser,logOut, getUserData, getProfilePicture, getAllProfilePictures, updateProfilePicture} from "../../utils/config";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -31,6 +31,7 @@ const responsiveStyle = {
 const Perfil = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -38,6 +39,12 @@ const Perfil = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(false);
   const [messageDelete, setMessageDelete] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("");
+  const [avatars, setAllAvatars] = useState([]);
+
+  const [open, setOpen] = useState(false);
+  const [openImg, setOpenImg] = useState(false);
+
 
   const [errorPassword, setErrorPassword] = useState([]);
 
@@ -47,17 +54,28 @@ const Perfil = () => {
       setUsername(user.username);
       setEmail(user.email);
       setPrivy(user.privy);
+      setId(user._id);
+      // setProfilePicture(linkFromBlob);
+      // const contentType = linkOrBlob.headers.get('content-type');
+      // console.log('blob ', linkOrBlob);
     }
     fetchData();
   }, []);
+useEffect(() => {
+  async function fetchData() {
+    const linkOrBlob = await getProfilePicture();
+    const imageUrl = URL.createObjectURL(linkOrBlob);
+    setProfilePicture(imageUrl);
+  }
+  fetchData();
+}, [openImg]);
 
-
-  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    setOpenImg(false);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,6 +117,22 @@ const Perfil = () => {
     logOut();
     window.location.reload();
   }
+  const handleShowAvatars = async () => {
+   setOpenImg(true); 
+   const data = await getAllProfilePictures()
+   setAllAvatars(data);
+  }
+
+  const handleSetImg = async (item) => {
+
+    const obj = {
+      img: item.itemName
+    }
+
+    await updateProfilePicture(obj);
+    setOpenImg(false);
+  }
+  
   return (
     <div className="home perfil">
       <Aside />
@@ -107,6 +141,9 @@ const Perfil = () => {
 
         <div className="login-page">
           <form className="container login-page-box editar-perfil" onSubmit={handleSubmit}>
+            <div onClick={handleShowAvatars} className="d-flex justify-content-center">
+              <img className="img-perfil-edit" src={profilePicture ? profilePicture : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'} alt="Imagem" />
+            </div>
             <div className="row">
               <div className="col-md-12">
                 { message && <h3 className="text-success">Atualizado com sucesso!</h3> }
@@ -158,6 +195,22 @@ const Perfil = () => {
             <label className='mt-4'>Confirme sua senha</label>
             <input className="form-control form-control-lg mt-3" type="password" name="confirm-password" placeholder="Senha" onChange={(e) => setConfirmPassword(e.target.value)} />
             <button className={`btn btn-excluir mt-4 bg-danger text-white w-100 ${loading ? 'disabled-link' : ''}`} onClick={handleExclude}>{loading ? 'Excluindo...' : 'Excluir' }</button>
+          </Box>
+        </Modal>
+      </div>
+
+      <div>
+        <Modal
+          open={openImg}
+          onClose={handleClose}
+          aria-labelledby="parent-modal-title"
+          aria-describedby="parent-modal-description"
+          className="mb-3"
+        >
+          <Box sx={{ ...style, ...responsiveStyle, width: 600, paddingBottom: 7 }}>
+              <div className="d-flex justify-content-between mt-4 flex-wrap">
+                {avatars && avatars.map((item, i) => <img key={i} onClick={() => handleSetImg(item)} className="img-perfil-edit-choice p-2" src={item ? URL.createObjectURL(item.blob) : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'} alt="Imagem" />)}
+              </div>
           </Box>
         </Modal>
       </div>

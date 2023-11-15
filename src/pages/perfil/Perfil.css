@@ -32,6 +32,16 @@
     background-color: #ff0320b0 !important;
     transition: 0.5s;
 }
+.img-perfil-edit{
+    width: 35%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.img-perfil-edit-choice{
+    width: 24%;
+    border-radius: 50%;
+    cursor: pointer;
+}
 @media screen and (max-width: 768px){
     .perfil{
         display: block;

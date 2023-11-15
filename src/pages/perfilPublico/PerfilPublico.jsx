@@ -7,6 +7,7 @@ import {
   getPlatforms,
   getUserById,
   getUserData,
+  getProfilePicture,
 } from "../../utils/config";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -54,6 +55,7 @@ const PerfilPublico = () => {
   const [allVideos, setAllVideos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -80,6 +82,7 @@ const PerfilPublico = () => {
       setLoading(false);
     }
     fetchData();
+    console.log(profilePicture);
   }, [updateComponentNav,page,platformParam,search]);
 
   useEffect(() => {

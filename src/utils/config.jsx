@@ -200,7 +200,7 @@ export const getProfilePicture = async () => {
   const config = {
     method: "GET",
   };
-  return await fetchImg(`${API}/api-user/profile/picture`, config);
+  return await fetchImg(`${API}/api-user/profile-pictures`, config);
 }
 
 export const getAllProfilePictures = async () => {
@@ -209,7 +209,7 @@ export const getAllProfilePictures = async () => {
   const config = {
     method: "GET",
   };
-  const data = await customFetch(`${API}/api-user/profile-pictures`, config);
+  const data = await customFetch(`${API}/api-user/profile-pictures/names`, config);
   try {
 
     const imagePromises = data.map((item) => {
@@ -238,5 +238,5 @@ export const updateProfilePicture = async (data) => {
     body: JSON.stringify(data),
   };
   
-  return fetch(`${API}/api-user/profile/picture`, config);
+  return fetch(`${API}/api-user/profile-pictures`, config);
 }

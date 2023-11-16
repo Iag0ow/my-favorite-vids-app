@@ -240,3 +240,9 @@ export const updateProfilePicture = async (data) => {
   
   return fetch(`${API}/api-user/profile-pictures`, config);
 }
+export const getPublicAvatar = async (id) => {
+  const config = {
+    method: "GET",
+  };
+  return await fetchImg(`${API}/discover/users/${id}/profile-pictures`, config);
+}

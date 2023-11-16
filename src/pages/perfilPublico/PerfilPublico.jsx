@@ -8,6 +8,7 @@ import {
   getUserById,
   getUserData,
   getProfilePicture,
+  getPublicAvatar,
 } from "../../utils/config";
 import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -67,10 +68,6 @@ const PerfilPublico = () => {
   },[])
 
   useEffect(() => {
-    updatePage(1);
-  }, []);
-
-  useEffect(() => {
     async function fetchData() {
       
       setLoading(true);
@@ -82,7 +79,7 @@ const PerfilPublico = () => {
       setLoading(false);
     }
     fetchData();
-    console.log(profilePicture);
+   
   }, [updateComponentNav,page,platformParam,search]);
 
   useEffect(() => {
@@ -120,6 +117,14 @@ const PerfilPublico = () => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    updatePage(1);
+    const fetchData = async () => {
+      setProfilePicture(URL.createObjectURL(await getPublicAvatar(id ? id : userData._id)));
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="home">
       <Aside />
@@ -129,8 +134,8 @@ const PerfilPublico = () => {
             <h3 className="mb-4 ">{userData.username}</h3>
             <p>{userData.bio}</p>
           </div>
-            {/* <img className="img-perfil" src={userData.profile_picture} alt="Profile" /> */}
-            <img className="img-perfil" src="https://picsum.photos/200" alt="" />
+            <img className="img-perfil" src={profilePicture ? profilePicture : "https://picsum.photos/200"} alt="Profile" />
+            {/* <img className="img-perfil" src="https://picsum.photos/200" alt="" /> */}
         </div>
         <div className="row">
           {allVideos.data &&
